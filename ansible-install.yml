@@ -1,0 +1,45 @@
+---
+- name: Install Dependencies
+  hosts: localhost
+  become: false
+  vars:
+    cargo_packages:
+      - bat
+      - bacon
+      - bob-nvim
+      - cargo-info
+      - coreutils
+      - du-dust
+      - exa
+      - fd-find
+      - gitui
+      - irust
+      - nu
+      - ripgrep
+      - rtx-cli
+      - speedtest-rs
+      - starship
+      - wiki-tui
+      - zellij
+      - zoxide
+
+  tasks:
+    - name: Install sccache
+      community.general.cargo:
+        name: "sccache"
+        path: "{{ ansible_env.HOME }}/.cargo"
+        state: present
+      register: result
+      until: result is successful
+
+    - name: Install with cargo
+      community.general.cargo:
+        name: "{{ item }}"
+        path: "{{ ansible_env.HOME }}/.cargo"
+        state: present
+      register: result
+      until: result is successful
+      environment:
+        RUSTC_WRAPPER: "{{ ansible_env.HOME }}/.cargo/bin/sccache"
+      loop: "{{ cargo_packages }}"
+

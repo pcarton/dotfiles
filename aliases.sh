@@ -1,0 +1,5 @@
+alias cat="bat"
+alias head="coreutils head"
+alias find="fd"
+alias du="dust"
+alias ls="exa -la --octal-permissions --no-permissions --git --icons"
