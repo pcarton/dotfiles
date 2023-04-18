@@ -3,6 +3,7 @@
   hosts: localhost
   become: false
   vars:
+    the_user: "{{ ansible_user_id }}"
     cargo_packages:
       - bat
       - bacon
@@ -36,10 +37,15 @@
       community.general.cargo:
         name: "{{ item }}"
         path: "{{ ansible_env.HOME }}/.cargo"
-        state: present
+        state: present 
       register: result
       until: result is successful
       environment:
         RUSTC_WRAPPER: "{{ ansible_env.HOME }}/.cargo/bin/sccache"
       loop: "{{ cargo_packages }}"
 
+    - name: Change user shell to nu
+      become: yes
+      user: 
+        name: "{{ the_user }}"
+        shell: "{{ ansible_env.HOME }}/.cargo/bin/nu"

@@ -16,5 +16,5 @@ function backup-and-link() {
 }
 
 backup-and-link "$HOME/.config" "starship.toml"
-backup-and-link "$HOME/.config/nushell/" "env.nu"
-backup-and-link "$HOME/.config/nushell/" "config.nu"
+backup-and-link "$HOME/.config/nushell" "env.nu"
+backup-and-link "$HOME/.config/nushell" "config.nu"
