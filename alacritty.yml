@@ -2,7 +2,7 @@ font:
   normal:
     # Install from here: https://github.com/ryanoasis/nerd-fonts
     family: "SauceCodePro Nerd Font Mono"
-  size: 20
+  size: 11
 
 shell:
   program: /bin/zsh

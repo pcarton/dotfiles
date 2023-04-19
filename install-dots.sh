@@ -12,9 +12,9 @@ function backup-and-link() {
     mv "$path/$file" "$path/$file.bak"
     ln -sv "$(pwd)/$file" "$path/$file"  
   fi
-
 }
 
 backup-and-link "$HOME/.config" "starship.toml"
 backup-and-link "$HOME/.config/nushell" "env.nu"
 backup-and-link "$HOME/.config/nushell" "config.nu"
+backup-and-link "$HOME/.config/alacritty" "alacritty.yml"
