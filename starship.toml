@@ -93,4 +93,4 @@ format = 'on [$symbol$project]($style) '
 [kubernetes]
 disabled = false
 style = 'blue'
-format = '[$symbol$context( ($namespace\))]($style) '
+format = '[$symbol$context(\($namespace\))]($style) '
