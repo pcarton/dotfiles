@@ -9,6 +9,8 @@
       - google-cloud-cli
       - helix  # TODO Needs extra setup in ubuntu - https://docs.helix-editor.com/install.html
       - kubectl
+      # - k9s
+      - neovim
     cargo_packages:
       - bat
       - bacon
