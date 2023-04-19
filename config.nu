@@ -537,3 +537,4 @@ let-env config = {
 
 source ~/.cache/starship/init.nu
 source ~/.zoxide.nu
+source ~/aliases.sh

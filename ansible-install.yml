@@ -6,7 +6,9 @@
     the_user: "{{ ansible_user_id }}"
     manager_packages:
       - cmake
+      - google-cloud-cli
       - helix  # TODO Needs extra setup in ubuntu - https://docs.helix-editor.com/install.html
+      - kubectl
     cargo_packages:
       - bat
       - bacon
