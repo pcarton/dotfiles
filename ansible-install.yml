@@ -6,6 +6,7 @@
     the_user: "{{ ansible_user_id }}"
     manager_packages:
       - cmake
+      - helix  # TODO Needs extra setup in ubuntu - https://docs.helix-editor.com/install.html
     cargo_packages:
       - bat
       - bacon
