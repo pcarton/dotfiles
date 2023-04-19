@@ -4,10 +4,13 @@
   become: false
   vars:
     the_user: "{{ ansible_user_id }}"
+    manager_packages:
+      - cmake
     cargo_packages:
       - bat
       - bacon
       - bob-nvim
+      - bottom
       - cargo-info
       - coreutils
       - du-dust
@@ -25,6 +28,15 @@
       - zoxide
 
   tasks:
+    - name: Install with package manager
+      become: yes
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      register: result
+      until: result is successful
+      loop: "{{ manager_packages }}"
+
     - name: Install sccache
       community.general.cargo:
         name: "sccache"
