@@ -1,0 +1,30 @@
+layout {
+  default_tab_template {
+    pane size=1 borderless=true {
+      plugin location="zellij:tab-bar"
+    }
+    children
+    pane size=2 borderless=true {
+      plugin location="zellij:status-bar"
+    }
+  }
+
+  tab name="Scratch" {
+    pane name="shell" {
+      borderless true
+    }
+  }
+  tab name="Editor" {
+    pane split_direction="vertical" {
+      pane name="helix"{
+        command "hx" 
+        args "."
+        borderless true
+        size "80%"
+      }
+      pane name="git" {
+        command "gitui"
+      }
+    }
+  }
+}
