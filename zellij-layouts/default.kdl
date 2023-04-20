@@ -14,10 +14,10 @@ layout {
       borderless true
     }
   }
-  tab name="Quad" {
+  tab name="Quad" focus=true {
 	pane split_direction="horizontal" {
 		pane split_direction="vertical" {
-			pane
+			pane focus=true
 			pane
 		}
 		pane split_direction="vertical" {
