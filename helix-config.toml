@@ -2,3 +2,14 @@ theme = "solarized_dark"
 
 [editor]
 true-color = true
+gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
+line-number = "relative"
+
+[editor.whitespace]
+render = "all"
+
+[editor.indent-guides]
+render = true
+character = "|"
+skip-levels = 1
+
