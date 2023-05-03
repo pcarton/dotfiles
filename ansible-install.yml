@@ -31,6 +31,19 @@
       - wiki-tui
       - zellij
       - zoxide
+    dotfiles:
+      - src: "{{ playbook_dir }}/starship.toml"
+        dest: "{{ ansible_env.HOME }}/.config/starship.toml"
+      - src: "{{ playbook_dir }}/env.nu"
+        dest: "{{ ansible_env.HOME }}/.config/nushell/env.nu"
+      - src: "{{ playbook_dir }}/config.nu"
+        dest: "{{ ansible_env.HOME }}/.config/nushell/config.nu"
+      - src: "{{ playbook_dir }}/alacritty.yml"
+        dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
+      - src: "{{ playbook_dir }}/aliases.sh"
+        dest: "{{ ansible_env.HOME }}/aliases.sh"
+      - src: "{{ playbook_dir }}/helix-config.toml"
+        dest: "{{ ansible_env.HOME }}/.config/helix/config.toml"
 
   tasks:
     - name: Install with package manager
@@ -87,3 +100,10 @@
       user: 
         name: "{{ the_user }}"
         shell: "{{ ansible_env.HOME }}/.cargo/bin/nu"
+
+    - name: Create symbolic links to the dotfiles
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: link
+      loop: "{{ dotfiles }}"
