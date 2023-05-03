@@ -94,3 +94,6 @@ format = 'on [$symbol$project]($style) '
 disabled = false
 style = 'blue'
 format = '[$symbol$context(\($namespace\))]($style) '
+
+[shell]
+disabled = false
