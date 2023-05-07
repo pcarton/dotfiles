@@ -23,6 +23,7 @@
       - fd-find
       - gitui
       - irust
+      - mprocs
       - nu
       - ripgrep
       - rtx-cli
@@ -31,6 +32,11 @@
       - wiki-tui
       - zellij
       - zoxide
+    config_dirs:
+      - nushell
+      - alacritty
+      - helix
+      - zellij
     dotfiles:
       - src: "{{ playbook_dir }}/starship.toml"
         dest: "{{ ansible_env.HOME }}/.config/starship.toml"
@@ -44,6 +50,10 @@
         dest: "{{ ansible_env.HOME }}/aliases.sh"
       - src: "{{ playbook_dir }}/helix-config.toml"
         dest: "{{ ansible_env.HOME }}/.config/helix/config.toml"
+      - src: "{{ playbook_dir }}/zellij-config.kdl"
+        dest: "{{ ansible_env.HOME }}/.config/zellij/config.kdl"
+      - src: "{{ playbook_dir }}/zellij-layouts"
+        dest: "{{ ansible_env.HOME }}/.config/zellij/layouts"
 
   tasks:
     - name: Install with package manager
@@ -100,6 +110,12 @@
       user: 
         name: "{{ the_user }}"
         shell: "{{ ansible_env.HOME }}/.cargo/bin/nu"
+
+    - name: Create config directories
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.config/{{ item }}"
+        state: directory
+      loop: "{{ config_dirs }}"
 
     - name: Create symbolic links to the dotfiles
       ansible.builtin.file:
