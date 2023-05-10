@@ -22,6 +22,7 @@
       - du-dust
       - exa
       - fd-find
+      - fnm
       - gitui
       - irust
       - mprocs
@@ -35,8 +36,8 @@
       - zoxide
     config_dirs:
       - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
-      - "{{ ansible_env.HOME }}/.config/alacritty"
       - "{{ ansible_env.HOME }}/.config/helix"
+      - "{{ ansible_env.HOME }}/.config/alacritty"
       - "{{ ansible_env.HOME }}/.config/zellij"
     dotfiles:
       - src: "{{ playbook_dir }}/starship.toml"
