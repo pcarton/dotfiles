@@ -11,7 +11,7 @@
       - hugo
       - kubectl
       - k9s
-      - neovim
+      - terraform
     cargo_packages:
       - bat
       - bacon
