@@ -8,3 +8,4 @@ alias claer = clear
 alias drbash = docker run -it --rm --entrypoint=/bin/bash
 alias drsh = docker run -it --rm --entrypoint=/bin/sh
 alias used-ports = lsof -PiTCP -sTCP:LISTEN
+alias hugo-edit = zellij -l hugo-editor

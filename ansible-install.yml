@@ -6,10 +6,11 @@
     the_user: "{{ ansible_user_id }}"
     manager_packages:
       - cmake
-      - google-cloud-cli
+      # - google-cloud-cli
       - helix  # TODO Needs extra setup in ubuntu - https://docs.helix-editor.com/install.html
+      - hugo
       - kubectl
-      # - k9s
+      - k9s
       - neovim
     cargo_packages:
       - bat
@@ -33,17 +34,17 @@
       - zellij
       - zoxide
     config_dirs:
-      - nushell
-      - alacritty
-      - helix
-      - zellij
+      - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
+      - "{{ ansible_env.HOME }}/.config/alacritty"
+      - "{{ ansible_env.HOME }}/.config/helix"
+      - "{{ ansible_env.HOME }}/.config/zellij"
     dotfiles:
       - src: "{{ playbook_dir }}/starship.toml"
         dest: "{{ ansible_env.HOME }}/.config/starship.toml"
       - src: "{{ playbook_dir }}/env.nu"
-        dest: "{{ ansible_env.HOME }}/.config/nushell/env.nu"
+        dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/env.nu"
       - src: "{{ playbook_dir }}/config.nu"
-        dest: "{{ ansible_env.HOME }}/.config/nushell/config.nu"
+        dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/config.nu"
       - src: "{{ playbook_dir }}/alacritty.yml"
         dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
       - src: "{{ playbook_dir }}/aliases.sh"
@@ -57,7 +58,7 @@
 
   tasks:
     - name: Install with package manager
-      become: yes
+      become: no
       ansible.builtin.package:
         name: "{{ item }}"
         state: present
@@ -117,9 +118,11 @@
 
     - name: Create config directories
       ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/.config/{{ item }}"
+        path: "{{ item }}"
         state: directory
       loop: "{{ config_dirs }}"
+      tags:
+        - dotfiles
 
     - name: Create symbolic links to the dotfiles
       ansible.builtin.file:
@@ -127,3 +130,5 @@
         dest: "{{ item.dest }}"
         state: link
       loop: "{{ dotfiles }}"
+      tags:
+        - dotfiles

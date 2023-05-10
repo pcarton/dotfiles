@@ -20,7 +20,7 @@ layout {
         command "hx" 
         args "."
         borderless true
-        size "70%"
+        size "60%"
       }
       pane split_direction="horizontal" {
         pane name="git" {
