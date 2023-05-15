@@ -34,6 +34,8 @@
       - wiki-tui
       - zellij
       - zoxide
+    pip_packages:
+      - frogmouth
     config_dirs:
       - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
       - "{{ ansible_env.HOME }}/.config/helix"
@@ -110,6 +112,15 @@
       loop: "{{ cargo_packages }}"
       tags:
         - rust
+
+    - name: Install with pip
+      ansible.builtin.pip:
+        name: "{{ item }}"
+        executable: pip3
+        state: present
+      register: result
+      until: result is successful
+      loop: "{{ pip_packages }}"
 
     - name: Change user shell to nu
       become: yes

@@ -34,4 +34,11 @@ layout {
       }
     }
   }
+  tab name="Frogmouth" {
+    pane {
+      cwd "hugo/content"
+      command "frogmouth"
+      args "."
+    }
+  }
 }
