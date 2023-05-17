@@ -1,0 +1,6 @@
+[[language]]
+name = "markdown"
+scope = "text.markdown"
+injection-regex = "markdown"
+file-types = ["md"]
+indent = { tab-width = 2, unit = "  " }

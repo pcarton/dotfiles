@@ -54,6 +54,8 @@
         dest: "{{ ansible_env.HOME }}/aliases.sh"
       - src: "{{ playbook_dir }}/helix-config.toml"
         dest: "{{ ansible_env.HOME }}/.config/helix/config.toml"
+      - src: "{{ playbook_dir }}/helix-languages.toml"
+        dest: "{{ ansible_env.HOME }}/.config/helix/languages.toml"
       - src: "{{ playbook_dir }}/zellij-config.kdl"
         dest: "{{ ansible_env.HOME }}/.config/zellij/config.kdl"
       - src: "{{ playbook_dir }}/zellij-layouts"
