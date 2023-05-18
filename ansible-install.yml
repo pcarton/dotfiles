@@ -66,7 +66,7 @@
       become: no
       ansible.builtin.package:
         name: "{{ item }}"
-        state: present
+        state: latest
       register: result
       until: result is successful
       loop: "{{ manager_packages }}"
@@ -96,7 +96,7 @@
       community.general.cargo:
         name: "sccache"
         path: "{{ ansible_env.HOME }}/.cargo"
-        state: present
+        state: latest
       register: result
       until: result is successful
       tags:
@@ -106,7 +106,7 @@
       community.general.cargo:
         name: "{{ item }}"
         path: "{{ ansible_env.HOME }}/.cargo"
-        state: present 
+        state: latest
       register: result
       until: result is successful
       environment:
@@ -119,7 +119,7 @@
       ansible.builtin.pip:
         name: "{{ item }}"
         executable: pip3
-        state: present
+        state: latest
       register: result
       until: result is successful
       loop: "{{ pip_packages }}"
