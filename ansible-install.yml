@@ -13,8 +13,8 @@
       - k9s
       - tfenv
     cargo_packages:
-      - bat
       - bacon
+      - bat
       - bob-nvim
       - bottom
       - cargo-info
