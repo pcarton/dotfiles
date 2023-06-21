@@ -6,11 +6,12 @@
     the_user: "{{ ansible_user_id }}"
     manager_packages:
       - cmake
-      # - google-cloud-cli
+      - derailed/popeye/popeye
       - helix  # TODO Needs extra setup in ubuntu - https://docs.helix-editor.com/install.html
+      - helm
       - hugo
-      - kubectl
       - k9s
+      - kubectl
       - tfenv
     cargo_packages:
       - bacon
@@ -36,6 +37,7 @@
       - zoxide
     pip_packages:
       - frogmouth
+      - termsaver
     config_dirs:
       - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
       - "{{ ansible_env.HOME }}/.config/helix"

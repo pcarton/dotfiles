@@ -4,6 +4,7 @@ theme = "solarized_dark"
 true-color = true
 gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
 line-number = "relative"
+soft-wrap.enable = true
 
 [editor.whitespace.render]
 space = "all"
