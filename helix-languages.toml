@@ -4,3 +4,7 @@ scope = "text.markdown"
 injection-regex = "markdown"
 file-types = ["md"]
 indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "rust"
+auto-format = true

@@ -19,3 +19,11 @@ skip-levels = 1
 [editor.file-picker]
 hidden = false
 git-ignore = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.lsp]
+display-messages = true
