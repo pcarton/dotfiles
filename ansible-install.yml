@@ -28,6 +28,7 @@
       - irust
       - mprocs
       - nu
+      - porsmo
       - ripgrep
       - rtx-cli
       - speedtest-rs
