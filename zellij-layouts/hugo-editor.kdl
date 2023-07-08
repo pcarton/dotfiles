@@ -14,7 +14,7 @@ layout {
       borderless true
     }
   }
-  tab name="Editor" {
+  tab name="Editor" focus=true {
     pane split_direction="vertical" {
       pane name="helix"{
         command "hx" 
