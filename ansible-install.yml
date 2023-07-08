@@ -6,14 +6,17 @@
     the_user: "{{ ansible_user_id }}"
     manager_packages:
       - cmake
-      - google-cloud-cli
+      - derailed/popeye/popeye
       - helix  # TODO Needs extra setup in ubuntu - https://docs.helix-editor.com/install.html
+      - helm
+      - hugo
+      - k9s
       - kubectl
-      # - k9s
-      - neovim
+      - tfenv
+      - yq
     cargo_packages:
-      - bat
       - bacon
+      - bat
       - bob-nvim
       - bottom
       - cargo-info
@@ -21,10 +24,12 @@
       - du-dust
       - exa
       - fd-find
+      - fnm
       - gitui
       - irust
       - mprocs
       - nu
+      - porsmo
       - ripgrep
       - rtx-cli
       - speedtest-rs
@@ -32,24 +37,29 @@
       - wiki-tui
       - zellij
       - zoxide
+    pip_packages:
+      - frogmouth
+      - termsaver
     config_dirs:
-      - nushell
-      - alacritty
-      - helix
-      - zellij
+      - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
+      - "{{ ansible_env.HOME }}/.config/helix"
+      - "{{ ansible_env.HOME }}/.config/alacritty"
+      - "{{ ansible_env.HOME }}/.config/zellij"
     dotfiles:
       - src: "{{ playbook_dir }}/starship.toml"
         dest: "{{ ansible_env.HOME }}/.config/starship.toml"
       - src: "{{ playbook_dir }}/env.nu"
-        dest: "{{ ansible_env.HOME }}/.config/nushell/env.nu"
+        dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/env.nu"
       - src: "{{ playbook_dir }}/config.nu"
-        dest: "{{ ansible_env.HOME }}/.config/nushell/config.nu"
+        dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/config.nu"
       - src: "{{ playbook_dir }}/alacritty.yml"
         dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
       - src: "{{ playbook_dir }}/aliases.sh"
         dest: "{{ ansible_env.HOME }}/aliases.sh"
       - src: "{{ playbook_dir }}/helix-config.toml"
         dest: "{{ ansible_env.HOME }}/.config/helix/config.toml"
+      - src: "{{ playbook_dir }}/helix-languages.toml"
+        dest: "{{ ansible_env.HOME }}/.config/helix/languages.toml"
       - src: "{{ playbook_dir }}/zellij-config.kdl"
         dest: "{{ ansible_env.HOME }}/.config/zellij/config.kdl"
       - src: "{{ playbook_dir }}/zellij-layouts"
@@ -57,10 +67,10 @@
 
   tasks:
     - name: Install with package manager
-      become: yes
+      become: no
       ansible.builtin.package:
         name: "{{ item }}"
-        state: present
+        state: latest
       register: result
       until: result is successful
       loop: "{{ manager_packages }}"
@@ -90,7 +100,7 @@
       community.general.cargo:
         name: "sccache"
         path: "{{ ansible_env.HOME }}/.cargo"
-        state: present
+        state: latest
       register: result
       until: result is successful
       tags:
@@ -100,7 +110,7 @@
       community.general.cargo:
         name: "{{ item }}"
         path: "{{ ansible_env.HOME }}/.cargo"
-        state: present 
+        state: latest
       register: result
       until: result is successful
       environment:
@@ -108,6 +118,15 @@
       loop: "{{ cargo_packages }}"
       tags:
         - rust
+
+    - name: Install with pip
+      ansible.builtin.pip:
+        name: "{{ item }}"
+        executable: pip3
+        state: latest
+      register: result
+      until: result is successful
+      loop: "{{ pip_packages }}"
 
     - name: Change user shell to nu
       become: yes
@@ -117,9 +136,11 @@
 
     - name: Create config directories
       ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/.config/{{ item }}"
+        path: "{{ item }}"
         state: directory
       loop: "{{ config_dirs }}"
+      tags:
+        - dotfiles
 
     - name: Create symbolic links to the dotfiles
       ansible.builtin.file:
@@ -127,3 +148,5 @@
         dest: "{{ item.dest }}"
         state: link
       loop: "{{ dotfiles }}"
+      tags:
+        - dotfiles

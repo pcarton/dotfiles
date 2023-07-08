@@ -14,13 +14,13 @@ layout {
       borderless true
     }
   }
-  tab name="Editor" {
+  tab name="Editor" focus=true {
     pane split_direction="vertical" {
       pane name="helix"{
         command "hx" 
         args "."
         borderless true
-        size "70%"
+        size "60%"
       }
       pane split_direction="horizontal" {
         pane name="git" {
@@ -32,6 +32,13 @@ layout {
           args "--" "hugo server -D"
        }
       }
+    }
+  }
+  tab name="Frogmouth" {
+    pane {
+      cwd "hugo/content"
+      command "frogmouth"
+      args "."
     }
   }
 }

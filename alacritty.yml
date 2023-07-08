@@ -2,10 +2,10 @@ font:
   normal:
     # Install from here: https://github.com/ryanoasis/nerd-fonts
     family: "SauceCodePro Nerd Font Mono"
-  size: 20
+  size: 14
 
 shell:
-  program: nu
+  program: /Users/patrick/.cargo/bin/nu
 
 window:
   option_as_alt: Both

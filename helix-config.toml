@@ -4,9 +4,12 @@ theme = "solarized_dark"
 true-color = true
 gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
 line-number = "relative"
+soft-wrap.enable = true
 
-[editor.whitespace]
-render = "all"
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+newline = "none"
 
 [editor.indent-guides]
 render = true
@@ -16,3 +19,11 @@ skip-levels = 1
 [editor.file-picker]
 hidden = false
 git-ignore = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.lsp]
+display-messages = true
