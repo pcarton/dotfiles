@@ -13,6 +13,7 @@
       - k9s
       - kubectl
       - tfenv
+      - yq
     cargo_packages:
       - bacon
       - bat
