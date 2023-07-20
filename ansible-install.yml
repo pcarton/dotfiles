@@ -96,6 +96,12 @@
       tags:
         - rust
 
+    - name: Update rust/cargo
+      when: not cargo_exists is failed
+      shell: rustup update
+      tags:
+        - rust
+
     - name: Install sccache
       community.general.cargo:
         name: "sccache"
