@@ -84,5 +84,5 @@ load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace 
 $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
 
 mkdir ~/.cache/starship
-# starship init nu | save -f ~/.cache/starship/init.nu
+starship init nu | save -f ~/.cache/starship/init.nu
 # zoxide init nushell | save -f ~/.zoxide.nu
