@@ -5,6 +5,7 @@
   vars:
     the_user: "{{ ansible_user_id }}"
     manager_packages:
+      - act
       - cmake
       - derailed/popeye/popeye
       - helix  # TODO Needs extra setup in ubuntu - https://docs.helix-editor.com/install.html
@@ -48,6 +49,8 @@
     dotfiles:
       - src: "{{ playbook_dir }}/starship.toml"
         dest: "{{ ansible_env.HOME }}/.config/starship.toml"
+      - src: "{{ playbook_dir }}/act-config.actrc"
+        dest: "{{ ansible_env.HOME }}/.actrc"
       - src: "{{ playbook_dir }}/env.nu"
         dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/env.nu"
       - src: "{{ playbook_dir }}/config.nu"

@@ -29,7 +29,7 @@ layout {
         pane name="mprocs" {
           cwd "hugo"
           command "mprocs"
-          args "--" "hugo server -D"
+          args "--" "hugo server -D" "cd ..; act -W .github/workflows/spellcheck.yaml --container-architecture linux/amd64"
        }
       }
     }
