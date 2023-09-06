@@ -13,6 +13,7 @@
       - hugo
       - k9s
       - kubectl
+      - kubectx
       - tfenv
       - yq
     cargo_packages:
@@ -23,7 +24,7 @@
       - cargo-info
       - coreutils
       - du-dust
-      - exa
+      - eza
       - fd-find
       - fnm
       - gitui
