@@ -47,6 +47,7 @@
     config_dirs:
       - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
       - "{{ ansible_env.HOME }}/.config/helix"
+      - "{{ ansible_env.HOME }}/.nu_scripts"
       - "{{ ansible_env.HOME }}/.config/alacritty"
       - "{{ ansible_env.HOME }}/.config/zellij"
     dotfiles:
@@ -58,6 +59,8 @@
         dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/env.nu"
       - src: "{{ playbook_dir }}/config.nu"
         dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/config.nu"
+      - src: "{{ playbook_dir }}/nu_scripts/git-completions.nu"
+        dest: "{{ ansible_env.HOME }}/.nu_scripts/git-completions.nu"
       - src: "{{ playbook_dir }}/alacritty.yml"
         dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
       - src: "{{ playbook_dir }}/aliases.sh"
