@@ -538,3 +538,5 @@ $env.config = {
 source ~/.cache/starship/init.nu
 source ~/.zoxide.nu
 source ~/aliases.sh
+
+use ~/.nu_scripts/git-completions.nu *
