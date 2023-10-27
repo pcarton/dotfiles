@@ -86,7 +86,6 @@
       loop: "{{ manager_packages }}"
       tags:
         - install
-        - upgrade
 
     - name: Upgrade all with package manager
       become: no
