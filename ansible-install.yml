@@ -15,6 +15,7 @@
       - kubectl
       - kubectx
       - kustomize
+      - pyenv
       - slides
       - tfenv
       - yq
