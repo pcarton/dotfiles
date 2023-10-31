@@ -196,5 +196,4 @@
       loop: "{{ dotfiles }}"
       tags:
         - install
-        - upgrade
         - dotfiles
