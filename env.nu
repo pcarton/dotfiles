@@ -85,6 +85,8 @@ $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
 
 $env.CLOUDSDK_PYTHON = '/opt/homebrew/opt/python@3.10/libexec/bin/python'
 
+$env.RUSTC_WRAPPER = $"($env.HOME)/.cargo/bin/sccache"
+
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 zoxide init nushell | save -f ~/.zoxide.nu
