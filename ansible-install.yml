@@ -179,7 +179,7 @@
         name: "{{ the_user }}"
         shell: "{{ ansible_env.HOME }}/.cargo/bin/nu"
       tags:
-        - install
+        - config
 
     - name: Create config directories
       ansible.builtin.file:
@@ -187,8 +187,8 @@
         state: directory
       loop: "{{ config_dirs }}"
       tags:
-        - install
         - dotfiles
+        - config
 
     - name: Create symbolic links to the dotfiles
       ansible.builtin.file:
@@ -197,5 +197,5 @@
         state: link
       loop: "{{ dotfiles }}"
       tags:
-        - install
         - dotfiles
+        - config
