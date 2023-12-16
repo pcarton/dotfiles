@@ -9,6 +9,7 @@
       - cmake
       - derailed/popeye/popeye
       - gh
+      - graphviz
       - helix  # TODO Needs extra setup in ubuntu - https://docs.helix-editor.com/install.html
       - helm
       - hugo
