@@ -25,7 +25,6 @@
     cargo_packages:
       - bacon
       - bat
-      - bob-nvim
       - bottom
       - cargo-info
       - csvlens
