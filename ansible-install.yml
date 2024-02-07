@@ -53,6 +53,7 @@
       - "{{ ansible_env.HOME }}/.nu_scripts"
       - "{{ ansible_env.HOME }}/.config/alacritty"
       - "{{ ansible_env.HOME }}/.config/zellij"
+      - "{{ ansible_env.HOME }}/.bash_scripts"
     dotfiles:
       - src: "{{ playbook_dir }}/starship.toml"
         dest: "{{ ansible_env.HOME }}/.config/starship.toml"
@@ -64,6 +65,8 @@
         dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/config.nu"
       - src: "{{ playbook_dir }}/nu_scripts/git-completions.nu"
         dest: "{{ ansible_env.HOME }}/.nu_scripts/git-completions.nu"
+      - src: "{{ playbook_dir }}/bash_scripts/pull-in-depependabot.sh"
+        dest: "{{ ansible_env.HOME }}/.bash_scripts/pull-in-depependabot.sh"
       - src: "{{ playbook_dir }}/alacritty.toml"
         dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.toml"
       - src: "{{ playbook_dir }}/aliases.sh"
