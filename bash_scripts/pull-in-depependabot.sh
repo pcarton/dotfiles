@@ -1,13 +1,14 @@
 #! /bin/bash
 
 function find-active-dependabot-branches() {
-  gh pr list --author "app/dependabot" --state open --json="headRefName" --template='{{range .}}{{.headRefName}}{{"\n"}}{{end}}'
+  gh pr list --author "app/dependabot" --state open --json="headRefName" --template='{{range .}}{{.headRefName}}{{" "}}{{end}}'
 }
 
 function merge-all-branches() {
   BRANCHES=$@
 
-  for BRANCH in "${BRANCHES[@]}"; do
+  for BRANCH in ${BRANCHES[@]}; do
+    echo $BRANCH
     git merge "origin/$BRANCH"
   done
 }
@@ -26,6 +27,6 @@ else
     echo "No active Dependabot branches"
     exit 1
   else
-    merge-all-branches $DEPENDABOT_BRANCHES
+    merge-all-branches $(echo ${DEPENDABOT_BRANCHES[@]})
   fi
 fi
