@@ -103,6 +103,21 @@
       tags:
         - upgrade
 
+    - name: Check if gcloud is installed
+      shell: command -v gcloud
+      register: gcloud_exists
+      ignore_errors: yes
+      tags:
+        - upgrade
+        - gcloud
+
+    - name: Upgrade gcloud components
+      when: not gcloud_exists is failed
+      shell: gcloud components update --quiet
+      tags:
+        - upgrade
+        - gcloud
+
     - name: Check if cargo is installed
       shell: command -v cargo
       register: cargo_exists
