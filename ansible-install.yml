@@ -18,6 +18,7 @@
       - kubectx
       - kustomize
       - llvm
+      - mc
       - pipx
       - pyenv
       - slides
