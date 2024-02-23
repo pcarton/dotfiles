@@ -18,6 +18,7 @@
       - kubectx
       - kustomize
       - llvm
+      - pipx
       - pyenv
       - slides
       - tfenv
@@ -179,17 +180,18 @@
         - upgrade
         - rust
 
-    - name: Install with pip
-      ansible.builtin.pip:
+    - name: Install with pipx
+      community.general.pipx:
         name: "{{ item }}"
-        executable: pip3
         state: latest
+        executable: /opt/homebrew/bin/pipx
       register: result
       until: result is successful
       loop: "{{ pip_packages }}"
       tags:
         - install
         - upgrade
+        - python
 
     - name: Change user shell to nu
       become: yes
