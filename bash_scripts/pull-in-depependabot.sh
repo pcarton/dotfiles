@@ -7,6 +7,7 @@ function find-active-dependabot-branches() {
 function merge-all-branches() {
   BRANCHES=$@
 
+  git pull --all
   for BRANCH in ${BRANCHES[@]}; do
     echo $BRANCH
     git merge "origin/$BRANCH"
