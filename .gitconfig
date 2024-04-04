@@ -1,10 +1,14 @@
-# This is Git's per-user configuration file.
+[include]
+  path = ~/git-delta/themes.gitconfig
+
 [user]
 # Please adapt and uncomment the following lines:
   name = Patrick Carton
   email = patrick.d.carton@gmail.com 
+
 [pull]
   rebase = false
+
 [push]
   autoSetupRemote = true
 
@@ -16,7 +20,8 @@
 
 [delta]
   navigate = true    # use n and N to move between diff sections
-
+  side-by-side = true
+  features = tangara-chilensis
 [merge]
   conflictstyle = diff3
 
