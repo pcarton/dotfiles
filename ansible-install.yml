@@ -4,9 +4,12 @@
   become: false
   vars:
     the_user: "{{ ansible_user_id }}"
+    casks:
+      - homebrew/cask-fonts
     manager_packages:
       - act
       - derailed/popeye/popeye
+      - font-hack-nerd-font
       - gh
       - graphviz
       - helix  # TODO Needs extra setup in ubuntu - https://docs.helix-editor.com/install.html
@@ -90,6 +93,17 @@
         dest: "{{ ansible_env.HOME }}/.config/zellij/layouts"
 
   tasks:
+    - name: Tap casks
+      become: no
+      community.general.homebrew_tap:
+        name: "{{ item }}"
+        state: present
+      register: result
+      until: result is successful
+      loop: "{{ casks }}"
+      tags:
+        - install
+
     - name: Install with package manager
       become: no
       community.general.homebrew:
