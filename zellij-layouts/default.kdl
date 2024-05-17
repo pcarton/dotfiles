@@ -10,26 +10,23 @@ layout {
   }
 
   tab name="Scratch" {
-    pane name="shell" {
-      borderless true
-    }
+    pane name="Shell" borderless=true
   }
   tab name="Quad" focus=true {
-	pane split_direction="horizontal" {
-		pane split_direction="vertical" {
-			pane focus=true
-			pane
-		}
-		pane split_direction="vertical" {
-			pane
-			pane
-		}
-	}
+    pane split_direction="horizontal" {
+      pane split_direction="vertical" {
+        pane focus=true
+        pane
+      }
+      pane split_direction="vertical" {
+        pane
+        pane
+      }
+    }
   }
   tab name="Monitor" {
-	pane {
-		borderless true
-		command "btm"
-	}
+    pane borderless=true {
+      command "btm"
+    }
   }
 }
