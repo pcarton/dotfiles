@@ -1,3 +1,7 @@
+right_format = """
+$time
+"""
+
 format = """
 $username\
 $hostname\
@@ -76,7 +80,6 @@ $cmd_duration\
 $line_break\
 $jobs\
 $battery\
-$time\
 $status\
 $os\
 $container\
@@ -105,3 +108,7 @@ error_symbol = '[✗](bold red)'
 [[battery.display]]
 threshold = 30
 style = 'bold red'
+
+[time]
+disabled = false
+format = '[$time]($style) '
