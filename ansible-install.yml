@@ -6,6 +6,8 @@
     the_user: "{{ ansible_user_id }}"
     manager_packages:
       - act
+      - ansible-language-server
+      - bash-language-server
       - derailed/popeye/popeye
       - font-hack-nerd-font
       - gh
@@ -19,10 +21,14 @@
       - kustomize
       - llvm
       - mc
+      - node
+      - npm
       - pipx
       - pyenv
       - slides
+      - terraform-ls
       - tfenv
+      - yaml-language-server
       - yq
     cargo_packages:
       - bacon
@@ -33,7 +39,6 @@
       - du-dust
       - eza
       - fd-find
-      - fnm
       - git-delta
       - gitui
       - hwatch
@@ -49,6 +54,8 @@
       - wiki-tui
       - zellij
       - zoxide
+    npm_packages:
+      - vscode-langservers-extracted
     pip_packages:
       - frogmouth
       - termsaver
@@ -201,6 +208,20 @@
         - install
         - upgrade
         - python
+
+    - name: Install with npm
+      community.general.npm:
+        name: "{{ item }}"
+        state: latest
+        executable: /opt/homebrew/bin/npm
+        global: true
+      register: result
+      until: result is successful
+      loop: "{{ npm_packages }}"
+      tags:
+        - install
+        - upgrade
+        - node
 
     - name: Change user shell to nu
       become: yes
