@@ -77,12 +77,8 @@ $env.NU_PLUGIN_DIRS = [
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/opt/homebrew/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.cargo/bin')
-$env.PATH = ($env.PATH | split row (char esep) | prepend '~/.fnm')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/usr/local/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/opt/homebrew/opt/llvm/bin')
-
-load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
-$env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
 
 $env.CLOUDSDK_PYTHON = '/opt/homebrew/opt/python@3.10/libexec/bin/python'
 
