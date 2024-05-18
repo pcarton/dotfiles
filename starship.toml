@@ -1,7 +1,3 @@
-right_format = """
-$time
-"""
-
 format = """
 $username\
 $hostname\
