@@ -1,26 +1,36 @@
-[colors.bright]
-black = "0x002b36"
-blue = "0x839496"
-cyan = "0x93a1a1"
-green = "0x586e75"
-magenta = "0x6c71c4"
-red = "0xcb4b16"
-white = "0xfdf6e3"
-yellow = "0x657b83"
+# (Github Dark Tritanopia) Colors for Alacritty
 
-[colors.normal]
-black = "0x073642"
-blue = "0x268bd2"
-cyan = "0x2aa198"
-green = "0x859900"
-magenta = "0xd33682"
-red = "0xdc322f"
-white = "0xeee8d5"
-yellow = "0xb58900"
-
+# Default colors
 [colors.primary]
-background = "0x002b36"
-foreground = "0x839496"
+background = '#0d1117'
+foreground = '#c9d1d9'
+
+# Cursor colors
+[colors.cursor]
+text = '#0d1117'
+cursor = '#c9d1d9'
+
+# Normal colors
+[colors.normal]
+black = '#484f58'
+red = '#ff7b72'
+green = '#58a6ff'
+yellow = '#d29922'
+blue = '#58a6ff'
+magenta = '#bc8cff'
+cyan = '#39c5cf'
+white = '#b1bac4'
+
+# Bright colors
+[colors.bright]
+black = '#6e7681'
+red = '#ffa198'
+green = '#79c0ff'
+yellow = '#e3b341'
+blue = '#79c0ff'
+magenta = '#bc8cff'
+cyan = '#39c5cf'
+white = '#b1bac4'
 
 [font]
 size = 14
