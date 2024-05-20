@@ -27,6 +27,7 @@ layout {
   tab name="Monitor" {
     pane borderless=true {
       command "btm"
+      args "--battery"
     }
   }
 }
