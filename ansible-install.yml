@@ -62,6 +62,7 @@
     config_dirs:
       - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
       - "{{ ansible_env.HOME }}/.config/helix"
+      - "{{ ansible_env.HOME }}/.config/mc"
       - "{{ ansible_env.HOME }}/.nu_scripts"
       - "{{ ansible_env.HOME }}/.config/alacritty"
       - "{{ ansible_env.HOME }}/.config/zellij"
@@ -92,6 +93,8 @@
         dest: "{{ ansible_env.HOME }}/.config/helix/config.toml"
       - src: "{{ playbook_dir }}/helix-languages.toml"
         dest: "{{ ansible_env.HOME }}/.config/helix/languages.toml"
+      - src: "{{ playbook_dir }}/midnight-commander.ini"
+        dest: "{{ ansible_env.HOME }}/.config/mc/ini"
       - src: "{{ playbook_dir }}/zellij-config.kdl"
         dest: "{{ ansible_env.HOME }}/.config/zellij/config.kdl"
       - src: "{{ playbook_dir }}/zellij-layouts"
