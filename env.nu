@@ -79,6 +79,7 @@ $env.PATH = ($env.PATH | split row (char esep) | prepend '/opt/homebrew/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.cargo/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/usr/local/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/opt/homebrew/opt/llvm/bin')
+$env.PATH = ($env.PATH | split row (char esep) | prepend $"(pyenv root)/shims")
 
 $env.CLOUDSDK_PYTHON = '/opt/homebrew/opt/python@3.10/libexec/bin/python'
 
