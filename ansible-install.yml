@@ -4,7 +4,7 @@
   become: false
   vars:
     the_user: "{{ ansible_user_id }}"
-    manager_packages:
+    osx_homebrew_packages:
       - act
       - ansible-language-server
       - bash-language-server
@@ -101,32 +101,34 @@
         dest: "{{ ansible_env.HOME }}/.config/zellij/layouts"
 
   tasks:
-    - name: Install with package manager
-      become: no
+    - name: Install with OSX Homebrew
+      become: false
       community.general.homebrew:
         name: "{{ item }}"
         state: latest
         update_homebrew: true
       register: result
       until: result is successful
-      loop: "{{ manager_packages }}"
+      loop: "{{ osx_homebrew_packages }}"
+      when: ansible_os_family == "Darwin"
       tags:
         - install
 
-    - name: Upgrade all with package manager
-      become: no
+    - name: Upgrade all with OSX Homebrew
+      become: false
       community.general.homebrew:
         update_homebrew: true
         upgrade_all: true
       register: result
       until: result is successful
+      when: ansible_os_family == "Darwin"
       tags:
         - upgrade
 
     - name: Check if gcloud is installed
       shell: command -v gcloud
       register: gcloud_exists
-      ignore_errors: yes
+      ignore_errors: true
       tags:
         - upgrade
         - gcloud
@@ -141,7 +143,7 @@
     - name: Check if cargo is installed
       shell: command -v cargo
       register: cargo_exists
-      ignore_errors: yes
+      ignore_errors: true
       tags:
         - install
         - upgrade
@@ -227,8 +229,8 @@
         - node
 
     - name: Change user shell to nu
-      become: yes
-      user: 
+      become: true
+      user:
         name: "{{ the_user }}"
         shell: "{{ ansible_env.HOME }}/.cargo/bin/nu"
       tags:
