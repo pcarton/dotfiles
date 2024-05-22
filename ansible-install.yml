@@ -6,13 +6,11 @@
     the_user: "{{ ansible_user_id }}"
     osx_homebrew_packages:
       - act
-      - ansible-language-server
-      - bash-language-server
       - derailed/popeye/popeye
       - font-hack-nerd-font
       - gh
       - graphviz
-      - helix  # TODO Needs extra setup in ubuntu - https://docs.helix-editor.com/install.html
+      - helix
       - helm
       - hugo
       - k9s
@@ -28,8 +26,37 @@
       - slides
       - terraform-ls
       - tfenv
-      - yaml-language-server
       - yq
+    debian_apt_repositories:
+      - ppa:maveonair/helix-editor
+      - 'deb [trusted=yes] http://ftp.de.debian.org/debian buster main'
+    debian_apt_packages:
+      # - act # TODO
+      - build-essential
+      # - derailed/popeye/popeye # TODO
+      # - font-hack-nerd-font # TODO
+      - gh
+      - graphviz
+      - helix
+      # - helm # TODO
+      - hugo 
+      # - k9s # TODO
+      # - kubectl # TODO
+      - kubectx # TODO
+      # - kustomize # TODO
+      - llvm
+      - mc
+      - nodejs
+      - npm
+      - python3-dev
+      - python3-pip
+      - python3-venv
+      - python3-virtualenv
+      # - pyenv # TODO
+      # - slides # TODO
+      # - terraform-ls # TODO
+      # - tfenv # TODO
+      # - yq # TODO
     cargo_packages:
       - bacon
       - bat
@@ -56,6 +83,9 @@
       - zoxide
     npm_packages:
       - vscode-langservers-extracted
+      - '@ansible/ansible-language-server'
+      - bash-language-server
+      - yaml-language-server
     pip_packages:
       - frogmouth
       - termsaver
@@ -124,6 +154,40 @@
       when: ansible_os_family == "Darwin"
       tags:
         - upgrade
+
+    - name: Add APT Repositories
+      become: true
+      ansible.builtin.apt_repository:
+        repo: "{{ item }}"
+        state: present
+      register: result
+      until: result is successful
+      loop: "{{ debian_apt_repositories }}"
+      when: ansible_os_family == "Debian"
+      tags:
+        - install
+
+    - name: Install with Debian APT
+      become: true
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      register: result
+      until: result is successful
+      loop: "{{ debian_apt_packages }}"
+      when: ansible_os_family == "Debian"
+      tags:
+        - install
+
+    - name: Upgrade all with Debian APT
+      become: true
+      ansible.builtin.apt:
+        upgrade: yes
+      register: result
+      until: result is successful
+      when: ansible_os_family == "Debian"
+      tags:
+        - install
 
     - name: Check if gcloud is installed
       shell: command -v gcloud
