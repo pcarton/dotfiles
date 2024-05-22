@@ -23,7 +23,6 @@
       - node
       - npm
       - pipx
-      - pyenv
       - slides
       - terraform-ls
       - tfenv
@@ -72,7 +71,6 @@
       - python3-pip
       - python3-venv
       - python3-virtualenv
-      # - pyenv # TODO
       # - slides # TODO
       - terraform-ls
       # - tfenv # TODO
@@ -229,6 +227,23 @@
       when: ansible_os_family == "Debian"
       tags:
         - install
+
+    - name: Check if pyenv exists
+      stat:
+        path: "{{ ansible_env.HOME }}/.pyenv"
+      register: pyenv_exists
+      tags:
+        - install
+        - python
+
+    - name: Install pyenv with installer
+      ansible.builtin.shell:
+        cmd: "curl https://pyenv.run | bash"
+      register: result
+      when: not pyenv_exists.stat.exists
+      tags:
+        - install
+        - python
 
     - name: Check if gcloud is installed
       shell: command -v gcloud
