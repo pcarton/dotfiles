@@ -43,6 +43,7 @@
       - ppa:maveonair/helix-editor
       - "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
       - "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"
+      - "deb [trusted=yes] http://ftp.us.debian.org/debian buster main"
     debian_apt_packages:
       # - alacritty # TODO
       # - act # TODO
@@ -283,6 +284,7 @@
       community.general.cargo:
         name: "sccache"
         path: "{{ ansible_env.HOME }}/.cargo"
+        executable: "{{ ansible_env.HOME }}/.cargo/bin/cargo"
         state: latest
       register: result
       until: result is successful
@@ -295,7 +297,9 @@
       community.general.cargo:
         name: "{{ item }}"
         path: "{{ ansible_env.HOME }}/.cargo"
+        executable: "{{ ansible_env.HOME }}/.cargo/bin/cargo"
         state: latest
+        locked: true
       register: result
       until: result is successful
       environment:
