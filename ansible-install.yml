@@ -6,6 +6,7 @@
     the_user: "{{ ansible_user_id }}"
     osx_homebrew_packages:
       - act
+      - alacritty
       - derailed/popeye/popeye
       - font-hack-nerd-font
       - gh
@@ -27,22 +28,36 @@
       - terraform-ls
       - tfenv
       - yq
+    debian_apt_keys:
+      - name: kubectl
+        key_url: "https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key"
+        key_path: "/etc/apt/keyrings/kubernetes-apt-keyring.gpg"
+      - name: hashicorp
+        key_url: "https://apt.releases.hashicorp.com/gpg"
+        key_path: "/usr/share/keyrings/hashicorp-archive-keyring.gpg"
+      - name: gcloud
+        key_url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+        key_path: "/usr/share/keyrings/cloud.google.gpg"
     debian_apt_repositories:
+      - "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /"
       - ppa:maveonair/helix-editor
-      - 'deb [trusted=yes] http://ftp.de.debian.org/debian buster main'
+      - "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+      - "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"
     debian_apt_packages:
+      # - alacritty # TODO
       # - act # TODO
       - build-essential
       - cmake
       # - derailed/popeye/popeye # TODO
       # - font-hack-nerd-font # TODO
       - gh
+      - google-cloud-cli
       - graphviz
       - helix
-      # - helm # TODO
+      # - helm # TODO need to build to ensure support for architecture
       - hugo 
       # - k9s # TODO
-      # - kubectl # TODO
+      - kubectl
       - kubectx # TODO
       # - kustomize # TODO
       - libasound2-dev
@@ -58,7 +73,7 @@
       - python3-virtualenv
       # - pyenv # TODO
       # - slides # TODO
-      # - terraform-ls # TODO
+      - terraform-ls
       # - tfenv # TODO
       # - yq # TODO
     cargo_packages:
@@ -168,6 +183,16 @@
       tags:
         - upgrade
 
+    - name: Add GPG keys for APT
+      become: true
+      ansible.builtin.shell:
+        cmd: "curl -L {{ item.key_url }} | gpg --dearmor --yes -o {{ item.key_path }}"
+      register: result
+      when: ansible_os_family == "Debian"
+      with_items: "{{ debian_apt_keys }}"
+      tags:
+        - install
+
     - name: Add APT Repositories
       become: true
       ansible.builtin.apt_repository:
@@ -180,24 +205,26 @@
       tags:
         - install
 
+    - name: Upgrade all with Debian APT
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: yes
+      register: result
+      until: result is successful
+      when: ansible_os_family == "Debian"
+      tags:
+        - upgrade
+
     - name: Install with Debian APT
       become: true
       ansible.builtin.apt:
         name: "{{ item }}"
         state: present
+        update_cache: true
       register: result
       until: result is successful
       loop: "{{ debian_apt_packages }}"
-      when: ansible_os_family == "Debian"
-      tags:
-        - install
-
-    - name: Upgrade all with Debian APT
-      become: true
-      ansible.builtin.apt:
-        upgrade: yes
-      register: result
-      until: result is successful
       when: ansible_os_family == "Debian"
       tags:
         - install
@@ -206,12 +233,13 @@
       shell: command -v gcloud
       register: gcloud_exists
       ignore_errors: true
+      when: ansible_os_family != "Debian"
       tags:
         - upgrade
         - gcloud
 
     - name: Upgrade gcloud components
-      when: not gcloud_exists is failed
+      when: not gcloud_exists is failed and ansible_os_family != "Debian"
       shell: gcloud components update --quiet
       tags:
         - upgrade
