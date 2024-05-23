@@ -38,8 +38,5 @@ size = 14
 [font.normal]
 family = "SauceCodePro Nerd Font Mono"
 
-[shell]
-program = "/Users/patrick/.cargo/bin/nu"
-
 [window]
 option_as_alt = "Both"
