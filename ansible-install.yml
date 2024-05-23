@@ -4,15 +4,14 @@
   become: false
   vars:
     the_user: "{{ ansible_user_id }}"
-    manager_packages:
+    osx_homebrew_packages:
       - act
-      - ansible-language-server
-      - bash-language-server
+      - alacritty
       - derailed/popeye/popeye
       - font-hack-nerd-font
       - gh
       - graphviz
-      - helix  # TODO Needs extra setup in ubuntu - https://docs.helix-editor.com/install.html
+      - helix
       - helm
       - hugo
       - k9s
@@ -24,12 +23,69 @@
       - node
       - npm
       - pipx
-      - pyenv
       - slides
       - terraform-ls
       - tfenv
-      - yaml-language-server
       - yq
+    debian_apt_keys:
+      - name: kubectl
+        key_url: "https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key"
+        key_path: "/etc/apt/keyrings/kubernetes-apt-keyring.gpg"
+      - name: hashicorp
+        key_url: "https://apt.releases.hashicorp.com/gpg"
+        key_path: "/usr/share/keyrings/hashicorp-archive-keyring.gpg"
+      - name: gcloud
+        key_url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+        key_path: "/usr/share/keyrings/cloud.google.gpg"
+    debian_apt_repositories:
+      - "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /"
+      - ppa:maveonair/helix-editor
+      - "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+      - "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"
+      - "deb [trusted=yes] http://ftp.us.debian.org/debian buster main"
+    debian_apt_packages:
+      - build-essential
+      - cmake
+      # - font-hack-nerd-font # TODO
+      - gh
+      - google-cloud-cli
+      - graphviz
+      - helix
+      - hugo 
+      # - k9s # TODO
+      - kubectl
+      - kubectx # TODO
+      - libasound2-dev
+      - libssl-dev
+      - llvm
+      - mc
+      - nodejs
+      - npm
+      - pkg-config
+      - python3-dev
+      - python3-pip
+      - python3-venv
+      - python3-virtualenv
+      - snapd
+      - terraform-ls
+      # - tfenv # TODO
+    snap_packages:
+      - name: core
+        classic: false
+      - name: act
+        classic: false
+      - name: alacritty
+        classic: true
+      - name: helm
+        classic: true
+      - name: kustomize
+        classic: false
+      - name: popeye
+        classic: false
+      - name: slides
+        classic: false
+      - name: yq
+        classic: false
     cargo_packages:
       - bacon
       - bat
@@ -56,11 +112,13 @@
       - zoxide
     npm_packages:
       - vscode-langservers-extracted
+      - '@ansible/ansible-language-server'
+      - bash-language-server
+      - yaml-language-server
     pip_packages:
       - frogmouth
       - termsaver
-    config_dirs:
-      - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
+    common_config_dirs:
       - "{{ ansible_env.HOME }}/.config/helix"
       - "{{ ansible_env.HOME }}/.config/mc"
       - "{{ ansible_env.HOME }}/.nu_scripts"
@@ -68,7 +126,7 @@
       - "{{ ansible_env.HOME }}/.config/zellij"
       - "{{ ansible_env.HOME }}/.bash_scripts"
       - "{{ ansible_env.HOME }}/git-delta"
-    dotfiles:
+    common_dotfiles:
       - src: "{{ playbook_dir }}/starship.toml"
         dest: "{{ ansible_env.HOME }}/.config/starship.toml"
       - src: "{{ playbook_dir }}/.gitconfig"
@@ -77,10 +135,6 @@
         dest: "{{ ansible_env.HOME }}/git-delta/themes.gitconfig"
       - src: "{{ playbook_dir }}/act-config.actrc"
         dest: "{{ ansible_env.HOME }}/.actrc"
-      - src: "{{ playbook_dir }}/env.nu"
-        dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/env.nu"
-      - src: "{{ playbook_dir }}/config.nu"
-        dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/config.nu"
       - src: "{{ playbook_dir }}/nu_scripts/git-completions.nu"
         dest: "{{ ansible_env.HOME }}/.nu_scripts/git-completions.nu"
       - src: "{{ playbook_dir }}/bash_scripts/pull-in-depependabot.sh"
@@ -99,40 +153,131 @@
         dest: "{{ ansible_env.HOME }}/.config/zellij/config.kdl"
       - src: "{{ playbook_dir }}/zellij-layouts"
         dest: "{{ ansible_env.HOME }}/.config/zellij/layouts"
+    osx_config_dirs:
+      - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
+    osx_dotfiles:
+      - src: "{{ playbook_dir }}/env.nu"
+        dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/env.nu"
+      - src: "{{ playbook_dir }}/config.nu"
+        dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/config.nu"
+    debian_config_dirs:
+      - "{{ ansible_env.HOME }}/.config/nushell"
+    debian_dotfiles:
+      - src: "{{ playbook_dir }}/env.nu"
+        dest: "{{ ansible_env.HOME }}/.config/nushell/env.nu"
+      - src: "{{ playbook_dir }}/config.nu"
+        dest: "{{ ansible_env.HOME }}/.config/nushell/config.nu"
 
   tasks:
-    - name: Install with package manager
-      become: no
+    - name: Install with OSX Homebrew
+      become: false
       community.general.homebrew:
         name: "{{ item }}"
         state: latest
         update_homebrew: true
       register: result
       until: result is successful
-      loop: "{{ manager_packages }}"
+      loop: "{{ osx_homebrew_packages }}"
+      when: ansible_os_family == "Darwin"
       tags:
         - install
 
-    - name: Upgrade all with package manager
-      become: no
+    - name: Upgrade all with OSX Homebrew
+      become: false
       community.general.homebrew:
         update_homebrew: true
         upgrade_all: true
       register: result
       until: result is successful
+      when: ansible_os_family == "Darwin"
       tags:
         - upgrade
+
+    - name: Add GPG keys for APT
+      become: true
+      ansible.builtin.shell:
+        cmd: "curl -L {{ item.key_url }} | gpg --dearmor --yes -o {{ item.key_path }}"
+      register: result
+      when: ansible_os_family == "Debian"
+      with_items: "{{ debian_apt_keys }}"
+      tags:
+        - install
+
+    - name: Add APT Repositories
+      become: true
+      ansible.builtin.apt_repository:
+        repo: "{{ item }}"
+        state: present
+      register: result
+      until: result is successful
+      loop: "{{ debian_apt_repositories }}"
+      when: ansible_os_family == "Debian"
+      tags:
+        - install
+
+    - name: Upgrade all with Debian APT
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: yes
+      register: result
+      until: result is successful
+      when: ansible_os_family == "Debian"
+      tags:
+        - upgrade
+
+    - name: Install with Debian APT
+      become: true
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: true
+      register: result
+      until: result is successful
+      loop: "{{ debian_apt_packages }}"
+      when: ansible_os_family == "Debian"
+      tags:
+        - install
+
+    - name: Install with Snap
+      become: true
+      community.general.snap:
+        name: "{{ item.name }}"
+        classic: "{{ item.classic }}"
+        state: present
+      loop: "{{ snap_packages }}"
+      when: ansible_os_family == "Debian"
+      tags:
+        - install
+
+    - name: Check if pyenv exists
+      stat:
+        path: "{{ ansible_env.HOME }}/.pyenv"
+      register: pyenv_exists
+      tags:
+        - install
+        - python
+
+    - name: Install pyenv with installer
+      ansible.builtin.shell:
+        cmd: "curl https://pyenv.run | bash"
+      register: result
+      when: not pyenv_exists.stat.exists
+      tags:
+        - install
+        - python
 
     - name: Check if gcloud is installed
       shell: command -v gcloud
       register: gcloud_exists
-      ignore_errors: yes
+      ignore_errors: true
+      when: ansible_os_family != "Debian"
       tags:
         - upgrade
         - gcloud
 
     - name: Upgrade gcloud components
-      when: not gcloud_exists is failed
+      when: not gcloud_exists is failed and ansible_os_family != "Debian"
       shell: gcloud components update --quiet
       tags:
         - upgrade
@@ -141,7 +286,7 @@
     - name: Check if cargo is installed
       shell: command -v cargo
       register: cargo_exists
-      ignore_errors: yes
+      ignore_errors: true
       tags:
         - install
         - upgrade
@@ -176,6 +321,7 @@
       community.general.cargo:
         name: "sccache"
         path: "{{ ansible_env.HOME }}/.cargo"
+        executable: "{{ ansible_env.HOME }}/.cargo/bin/cargo"
         state: latest
       register: result
       until: result is successful
@@ -188,7 +334,9 @@
       community.general.cargo:
         name: "{{ item }}"
         path: "{{ ansible_env.HOME }}/.cargo"
+        executable: "{{ ansible_env.HOME }}/.cargo/bin/cargo"
         state: latest
+        locked: true
       register: result
       until: result is successful
       environment:
@@ -199,11 +347,22 @@
         - upgrade
         - rust
 
+    - name: Install pipx
+      ansible.builtin.pip:
+        name: pipx
+        state: latest
+      register: result
+      until: result is successful
+      tags:
+        - install
+        - upgrade
+        - python
+
     - name: Install with pipx
       community.general.pipx:
         name: "{{ item }}"
         state: latest
-        executable: /opt/homebrew/bin/pipx
+        # executable: /opt/homebrew/bin/pipx
       register: result
       until: result is successful
       loop: "{{ pip_packages }}"
@@ -212,43 +371,100 @@
         - upgrade
         - python
 
-    - name: Install with npm
+    - name: Install with npm on MacOS
       community.general.npm:
         name: "{{ item }}"
         state: latest
-        executable: /opt/homebrew/bin/npm
         global: true
       register: result
       until: result is successful
       loop: "{{ npm_packages }}"
+      when: ansible_os_family == "Darwin"
+      tags:
+        - install
+        - upgrade
+        - node
+
+    - name: Install with npm on Debian
+      become: true
+      community.general.npm:
+        name: "{{ item }}"
+        state: latest
+        global: true
+      register: result
+      until: result is successful
+      loop: "{{ npm_packages }}"
+      when: ansible_os_family == "Debian"
       tags:
         - install
         - upgrade
         - node
 
     - name: Change user shell to nu
-      become: yes
-      user: 
+      become: true
+      user:
         name: "{{ the_user }}"
         shell: "{{ ansible_env.HOME }}/.cargo/bin/nu"
       tags:
         - config
 
-    - name: Create config directories
+    - name: Create common config directories
       ansible.builtin.file:
         path: "{{ item }}"
         state: directory
-      loop: "{{ config_dirs }}"
+      loop: "{{ common_config_dirs }}"
       tags:
         - dotfiles
         - config
 
-    - name: Create symbolic links to the dotfiles
+    - name: Create symbolic links to the common dotfiles
       ansible.builtin.file:
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
         state: link
-      loop: "{{ dotfiles }}"
+      loop: "{{ common_dotfiles }}"
+      tags:
+        - dotfiles
+        - config
+
+    - name: Create MacOS config directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      loop: "{{ osx_config_dirs }}"
+      when: ansible_os_family == "Darwin"
+      tags:
+        - dotfiles
+        - config
+
+    - name: Create symbolic links to the MacOS dotfiles
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: link
+      loop: "{{ osx_dotfiles }}"
+      when: ansible_os_family == "Darwin"
+      tags:
+        - dotfiles
+        - config
+
+    - name: Create Debian config directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      loop: "{{ debian_config_dirs }}"
+      when: ansible_os_family == "Debian"
+      tags:
+        - dotfiles
+        - config
+
+    - name: Create symbolic links to the Debian dotfiles
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: link
+      loop: "{{ debian_dotfiles }}"
+      when: ansible_os_family == "Debian"
       tags:
         - dotfiles
         - config
