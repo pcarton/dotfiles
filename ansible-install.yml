@@ -72,9 +72,15 @@
       - python3-venv
       - python3-virtualenv
       # - slides # TODO
+      - snapd
       - terraform-ls
       # - tfenv # TODO
       # - yq # TODO
+    snap_packages:
+      - name: core
+        classic: false
+      - name: alacritty
+        classic: true
     cargo_packages:
       - bacon
       - bat
@@ -224,6 +230,17 @@
       register: result
       until: result is successful
       loop: "{{ debian_apt_packages }}"
+      when: ansible_os_family == "Debian"
+      tags:
+        - install
+
+    - name: Install with Snap
+      become: true
+      community.general.snap:
+        name: "{{ item.name }}"
+        classic: "{{ item.classic }}"
+        state: present
+      loop: "{{ snap_packages }}"
       when: ansible_os_family == "Debian"
       tags:
         - install
