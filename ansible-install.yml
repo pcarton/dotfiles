@@ -244,12 +244,11 @@
       community.general.snap:
         name: "{{ item.name }}"
         classic: "{{ item.classic }}"
-        state: latest
+        state: present
       loop: "{{ snap_packages }}"
       when: ansible_os_family == "Debian"
       tags:
         - install
-        - upgrade
 
     - name: Check if pyenv exists
       stat:
