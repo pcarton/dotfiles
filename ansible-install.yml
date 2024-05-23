@@ -44,22 +44,17 @@
       - "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"
       - "deb [trusted=yes] http://ftp.us.debian.org/debian buster main"
     debian_apt_packages:
-      # - alacritty # TODO
-      # - act # TODO
       - build-essential
       - cmake
-      # - derailed/popeye/popeye # TODO
       # - font-hack-nerd-font # TODO
       - gh
       - google-cloud-cli
       - graphviz
       - helix
-      # - helm # TODO need to build to ensure support for architecture
       - hugo 
       # - k9s # TODO
       - kubectl
       - kubectx # TODO
-      # - kustomize # TODO
       - libasound2-dev
       - libssl-dev
       - llvm
@@ -71,16 +66,26 @@
       - python3-pip
       - python3-venv
       - python3-virtualenv
-      # - slides # TODO
       - snapd
       - terraform-ls
       # - tfenv # TODO
-      # - yq # TODO
     snap_packages:
       - name: core
         classic: false
+      - name: act
+        classic: false
       - name: alacritty
         classic: true
+      - name: helm
+        classic: true
+      - name: kustomize
+        classic: false
+      - name: popeye
+        classic: false
+      - name: slides
+        classic: false
+      - name: yq
+        classic: false
     cargo_packages:
       - bacon
       - bat
@@ -239,11 +244,12 @@
       community.general.snap:
         name: "{{ item.name }}"
         classic: "{{ item.classic }}"
-        state: present
+        state: latest
       loop: "{{ snap_packages }}"
       when: ansible_os_family == "Debian"
       tags:
         - install
+        - upgrade
 
     - name: Check if pyenv exists
       stat:
@@ -370,7 +376,6 @@
       community.general.npm:
         name: "{{ item }}"
         state: latest
-        # executable: /opt/homebrew/bin/npm
         global: true
       register: result
       until: result is successful
@@ -386,7 +391,6 @@
       community.general.npm:
         name: "{{ item }}"
         state: latest
-        # executable: /opt/homebrew/bin/npm
         global: true
       register: result
       until: result is successful
