@@ -12,3 +12,4 @@ if [ -f "/etc/debian_version" ]; then
 fi
 
 ~/.local/bin/pipx install --include-deps ansible
+ansible-galaxy collection install community.general
