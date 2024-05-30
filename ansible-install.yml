@@ -169,6 +169,17 @@
         dest: "{{ ansible_env.HOME }}/.config/nushell/config.nu"
 
   tasks:
+    - name: Upgrade all with OSX Homebrew
+      become: false
+      community.general.homebrew:
+        update_homebrew: true
+        upgrade_all: true
+      register: result
+      until: result is successful
+      when: ansible_os_family == "Darwin"
+      tags:
+        - upgrade
+
     - name: Install with OSX Homebrew
       become: false
       community.general.homebrew:
@@ -181,17 +192,6 @@
       when: ansible_os_family == "Darwin"
       tags:
         - install
-
-    - name: Upgrade all with OSX Homebrew
-      become: false
-      community.general.homebrew:
-        update_homebrew: true
-        upgrade_all: true
-      register: result
-      until: result is successful
-      when: ansible_os_family == "Darwin"
-      tags:
-        - upgrade
 
     - name: Add GPG keys for APT
       become: true
@@ -254,6 +254,7 @@
       stat:
         path: "{{ ansible_env.HOME }}/.pyenv"
       register: pyenv_exists
+      changed_when: false
       tags:
         - install
         - python
@@ -272,6 +273,7 @@
       register: gcloud_exists
       ignore_errors: true
       when: ansible_os_family != "Debian"
+      changed_when: false
       tags:
         - upgrade
         - gcloud
@@ -279,6 +281,8 @@
     - name: Upgrade gcloud components
       when: not gcloud_exists is failed and ansible_os_family != "Debian"
       shell: gcloud components update --quiet
+      register: result
+      changed_when: "'Update done!' in result.stderr"
       tags:
         - upgrade
         - gcloud
@@ -287,6 +291,7 @@
       shell: command -v cargo
       register: cargo_exists
       ignore_errors: true
+      changed_when: false
       tags:
         - install
         - upgrade
@@ -313,6 +318,8 @@
     - name: Update rust/cargo
       when: not cargo_exists is failed
       shell: rustup update
+      register: result
+      changed_when: "'Rust is installed now. Great!' in result.stdout"
       tags:
         - upgrade
         - rust
