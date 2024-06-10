@@ -10,6 +10,7 @@
       - derailed/popeye/popeye
       - font-hack-nerd-font
       - gh
+      - glow
       - graphviz
       - helix
       - helm
