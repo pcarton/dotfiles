@@ -10,7 +10,7 @@
       - derailed/popeye/popeye
       - font-hack-nerd-font
       - gh
-      - glow
+      # - glow - open question that's concerning https://github.com/charmbracelet/glow/issues/615
       - graphviz
       - helix
       - helm
