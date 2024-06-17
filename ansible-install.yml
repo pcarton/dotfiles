@@ -20,6 +20,7 @@
       - kubectx
       - kustomize
       - llvm
+      - mas
       - mc
       - node
       - npm
@@ -28,6 +29,8 @@
       - terraform-ls
       - tfenv
       - yq
+    osx_app_store_apps:
+      - 775737590 # iA Writer
     debian_apt_keys:
       - name: kubectl
         key_url: "https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key"
@@ -181,6 +184,16 @@
       tags:
         - upgrade
 
+    - name: Upgrade all with MAS
+      become: false
+      community.general.mas:
+        upgrade_all: true
+      register: result
+      until: result is successful
+      when: ansible_os_family == "Darwin"
+      tags:
+        - upgrade
+
     - name: Install with OSX Homebrew
       become: false
       community.general.homebrew:
@@ -190,6 +203,18 @@
       register: result
       until: result is successful
       loop: "{{ osx_homebrew_packages }}"
+      when: ansible_os_family == "Darwin"
+      tags:
+        - install
+
+    - name: Install with MAS
+      become: false
+      community.general.mas:
+        id: "{{ item }}"
+        state: latest
+      register: result
+      until: result is successful
+      loop: "{{ osx_app_store_apps }}"
       when: ansible_os_family == "Darwin"
       tags:
         - install
