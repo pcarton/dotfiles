@@ -184,16 +184,6 @@
       tags:
         - upgrade
 
-    - name: Upgrade all with MAS
-      become: false
-      community.general.mas:
-        upgrade_all: true
-      register: result
-      until: result is successful
-      when: ansible_os_family == "Darwin"
-      tags:
-        - upgrade
-
     - name: Install with OSX Homebrew
       become: false
       community.general.homebrew:
@@ -206,6 +196,16 @@
       when: ansible_os_family == "Darwin"
       tags:
         - install
+
+    - name: Upgrade all with MAS
+      become: false
+      community.general.mas:
+        upgrade_all: true
+      register: result
+      until: result is successful
+      when: ansible_os_family == "Darwin"
+      tags:
+        - upgrade
 
     - name: Install with MAS
       become: false
