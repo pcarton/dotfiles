@@ -386,6 +386,7 @@
         state: latest
       register: result
       until: result is successful
+      when: ansible_os_family != "Darwin"
       tags:
         - install
         - upgrade
