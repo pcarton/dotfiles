@@ -1,0 +1,14 @@
+name: Make a new release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-release:
+    uses: pcarton/github-actions/.github/workflows/make-release.yaml@update-release-action
+    with:
+      default_increment: minor
+    secrets:
+      input_github_token: ${{ secrets.GITHUB_TOKEN }}
