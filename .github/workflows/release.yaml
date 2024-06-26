@@ -7,8 +7,8 @@ on:
 
 jobs:
   create-release:
-    uses: pcarton/github-actions/.github/workflows/make-release.yaml@update-release-action
+    uses: pcarton/github-actions/.github/workflows/make-release.yaml@v0.11.0
     with:
-      default_increment: minor
+      default_increment: patch
     secrets:
       input_github_token: ${{ secrets.GITHUB_TOKEN }}
