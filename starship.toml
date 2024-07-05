@@ -85,6 +85,9 @@ $character"""
 [os]
 disabled = false
 
+[os.symbols]
+Macos = " "
+
 [gcloud]
 style = 'bold yellow'
 format = 'on [$symbol$project]($style) '
