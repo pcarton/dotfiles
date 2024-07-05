@@ -8,7 +8,7 @@
       - act
       - alacritty
       - derailed/popeye/popeye
-      - font-hack-nerd-font
+      - font-sauce-code-pro-nerd-font
       - gh
       # - glow - open question that's concerning https://github.com/charmbracelet/glow/issues/615
       - graphviz
