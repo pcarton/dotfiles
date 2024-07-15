@@ -29,6 +29,7 @@
       - slides
       - terraform-ls
       - tfenv
+      - vlc
       - yq
     osx_app_store_apps:
       - 775737590 # iA Writer
