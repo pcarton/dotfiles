@@ -9,6 +9,7 @@
       - alacritty
       - derailed/popeye/popeye
       - font-sauce-code-pro-nerd-font
+      - geckodriver
       - gh
       # - glow - open question that's concerning https://github.com/charmbracelet/glow/issues/615
       - graphviz
