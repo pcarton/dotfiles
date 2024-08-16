@@ -7,6 +7,7 @@
     osx_homebrew_packages:
       - act
       - alacritty
+      - cmake
       - derailed/popeye/popeye
       - font-sauce-code-pro-nerd-font
       - geckodriver
