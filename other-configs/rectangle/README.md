@@ -1,3 +1,7 @@
+# Rectangle
+[Site](https://rectangleapp.com/)
+OS: MacOS 10.15+ (Intel and Apple Silicon)
+
 # Instructions
 Open Rectangle and click on the menu bar icon 
 Go to "Preferences" or "Settings"
