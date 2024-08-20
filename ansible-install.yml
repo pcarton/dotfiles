@@ -32,6 +32,7 @@
       - terraform-ls
       - tfenv
       - vlc
+      - wget
       - yq
     osx_app_store_apps:
       - 775737590 # iA Writer
