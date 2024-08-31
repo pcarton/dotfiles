@@ -402,7 +402,7 @@
       community.general.pipx:
         name: "{{ item }}"
         state: latest
-        # executable: /opt/homebrew/bin/pipx
+        executable: /opt/homebrew/bin/pipx
       register: result
       until: result is successful
       loop: "{{ pip_packages }}"
