@@ -36,6 +36,8 @@
       - yq
     osx_app_store_apps:
       - 775737590 # iA Writer
+      - 585829637 # Todoist
+      - 1099568401 # Home Assistant
     debian_apt_keys:
       - name: kubectl
         key_url: "https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key"
