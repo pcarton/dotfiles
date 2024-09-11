@@ -149,6 +149,8 @@
         dest: "{{ ansible_env.HOME }}/.actrc"
       - src: "{{ playbook_dir }}/nu_scripts/git-completions.nu"
         dest: "{{ ansible_env.HOME }}/.nu_scripts/git-completions.nu"
+      - src: "{{ playbook_dir }}/nu_scripts/cd.nu"
+        dest: "{{ ansible_env.HOME }}/.nu_scripts/cd.nu"
       - src: "{{ playbook_dir }}/bash_scripts/pull-in-depependabot.sh"
         dest: "{{ ansible_env.HOME }}/.bash_scripts/pull-in-depependabot.sh"
       - src: "{{ playbook_dir }}/alacritty.toml"
