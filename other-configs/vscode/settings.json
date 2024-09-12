@@ -1,0 +1,10 @@
+{
+    "editor.renderWhitespace": "all",
+    "git.confirmSync": false,
+    "workbench.statusBar.visible": false,
+    "github.gitProtocol": "ssh",
+    "git.autofetch": true,
+    "git.fetchOnPull": true,
+    "editor.fontFamily": "SauceCodePro Nerd Font Mono",
+    "workbench.colorTheme": "GitHub Dark Colorblind (Beta)"
+}
