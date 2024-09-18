@@ -63,7 +63,8 @@
       - google-cloud-cli
       - graphviz
       - helix
-      - hugo 
+      - hugo
+      - jq
       # - k9s # TODO
       - kubectl
       - kubectx # TODO
