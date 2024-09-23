@@ -8,6 +8,7 @@
       - act
       - alacritty
       - cmake
+      - coreutils
       - derailed/popeye/popeye
       - font-sauce-code-pro-nerd-font
       - geckodriver
