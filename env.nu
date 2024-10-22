@@ -87,7 +87,7 @@ $env.CLOUDSDK_PYTHON = '/opt/homebrew/opt/python@3.10/libexec/bin/python'
 
 $env.RUSTC_WRAPPER = $"($env.HOME)/.cargo/bin/sccache"
 
-$env.EDITOR = (which hx)
+$env.EDITOR = $"(which hx | get path | path expand | get 0)"
 
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
