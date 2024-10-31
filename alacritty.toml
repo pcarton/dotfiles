@@ -40,3 +40,6 @@ family = "SauceCodePro Nerd Font Mono"
 
 [window]
 option_as_alt = "Both"
+
+[terminal.shell]
+program = "/home/patrick/.cargo/bin/nu"
