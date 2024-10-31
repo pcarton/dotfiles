@@ -63,8 +63,12 @@
       - "deb [trusted=yes] http://ftp.us.debian.org/debian buster main"
     debian_apt_packages:
       - build-essential
+      - containerd.io
       - cmake
-      - docker
+      - docker-ce
+      - docker-ce-cli
+      - docker-compose-plugin
+      - docker-buildx-plugin
       # - font-hack-nerd-font # TODO
       - fonts-noto-color-emoji
       - gh
