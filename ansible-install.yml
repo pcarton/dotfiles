@@ -43,6 +43,9 @@
       - 585829637 # Todoist
       - 1099568401 # Home Assistant
     debian_apt_keys:
+      - name: docker
+        key_url: "https://download.docker.com/linux/raspbian/gpg"
+        key_path: "/etc/apt/keyrings/docker.asc"
       - name: kubectl
         key_url: "https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key"
         key_path: "/etc/apt/keyrings/kubernetes-apt-keyring.gpg"
@@ -53,6 +56,7 @@
         key_url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
         key_path: "/usr/share/keyrings/cloud.google.gpg"
     debian_apt_repositories:
+      - "deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/raspbian {{ ansible_distribution_release }} stable"
       - "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /"
       - "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
       - "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"
@@ -60,6 +64,7 @@
     debian_apt_packages:
       - build-essential
       - cmake
+      - docker
       # - font-hack-nerd-font # TODO
       - fonts-noto-color-emoji
       - gh
