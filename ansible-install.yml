@@ -61,6 +61,7 @@
       - build-essential
       - cmake
       # - font-hack-nerd-font # TODO
+      - fonts-noto-color-emoji
       - gh
       - google-cloud-cli
       - graphviz
