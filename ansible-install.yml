@@ -251,6 +251,18 @@
       tags:
         - install
 
+    - name: Ensure GPG keys are readable
+      become: true
+      ansible.builtin.file:
+        path: {{ item.key_path }}
+        state: touch
+        mode: a+r
+      register: result
+      when: ansible_os_family == "Debian"
+      with_items: "{{ debian_apt_keys }}"
+      tags:
+        - install
+
     - name: Add APT Repositories
       become: true
       ansible.builtin.apt_repository:
