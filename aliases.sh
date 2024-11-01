@@ -12,4 +12,6 @@ alias hugo-edit = zellij -l hugo-editor
 alias rust-edit = zellij -l rust-editor
 alias gconfa = gcloud config configurations activate
 alias pull-dependabot = ~/.bash_scripts/pull-in-depependabot.sh
+alias whatsmyip = ~/.bash_scripts/get-ip.sh
+alias get-ip = ~/.bash_scripts/get-ip.sh
 alias watch = hwatch
