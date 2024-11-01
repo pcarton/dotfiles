@@ -175,6 +175,8 @@
         dest: "{{ ansible_env.HOME }}/.nu_scripts/cd.nu"
       - src: "{{ playbook_dir }}/bash_scripts/pull-in-depependabot.sh"
         dest: "{{ ansible_env.HOME }}/.bash_scripts/pull-in-depependabot.sh"
+      - src: "{{ playbook_dir }}/bash_scripts/get-ip.sh"
+        dest: "{{ ansible_env.HOME }}/.bash_scripts/get-ip.sh"
       - src: "{{ playbook_dir }}/alacritty.toml"
         dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.toml"
       - src: "{{ playbook_dir }}/aliases.sh"
