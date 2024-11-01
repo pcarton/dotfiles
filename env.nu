@@ -84,7 +84,7 @@ $env.PATH = ($env.PATH | split row (char esep) | prepend $"(pyenv root)/shims")
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.local/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/snap/bin')
 
-$env.CLOUDSDK_PYTHON = '/opt/homebrew/opt/python@3.10/libexec/bin/python'
+# $env.CLOUDSDK_PYTHON = '/opt/homebrew/opt/python@3.10/libexec/bin/python'
 
 $env.RUSTC_WRAPPER = $"($env.HOME)/.cargo/bin/sccache"
 

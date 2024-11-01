@@ -59,16 +59,21 @@
       - name: gcloud
         key_url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
         key_path: "/usr/share/keyrings/cloud.google.gpg"
+      - name: github
+        key_url: "https://cli.github.com/packages/githubcli-archive-keyring.gpg"
+        key_path: "/etc/apt/keyrings/githubcli-archive-keyring.gpg"
     debian_apt_repositories:
       - "deb [arch={{ deb_architecture[ansible_architecture] }} signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
       - "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /"
       - "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
       - "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"
       - "deb [trusted=yes] http://ftp.us.debian.org/debian buster main"
+      - "deb [arch={{ deb_architecture[ansible_architecture] }}  signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main"
     debian_apt_packages:
       - build-essential
       - containerd.io
       - cmake
+      - dnsutils
       - docker-ce
       - docker-ce-cli
       - docker-compose-plugin
@@ -97,6 +102,7 @@
       - python3-virtualenv
       - snapd
       - terraform-ls
+      - terraform
       # - tfenv # TODO
     snap_packages:
       - name: core
