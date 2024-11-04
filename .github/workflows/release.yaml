@@ -7,7 +7,7 @@ on:
 
 jobs:
   create-release:
-    uses: pcarton/github-actions/.github/workflows/make-release.yaml@v0.11.14
+    uses: pcarton/github-actions/.github/workflows/make-release.yaml@v0.11.16
     with:
       default_increment: patch
     secrets:
