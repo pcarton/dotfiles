@@ -110,7 +110,6 @@
       - name: yq
         classic: false
     cargo_packages:
-      - bacon
       - bat
       - bottom
       - cargo-info
@@ -127,7 +126,6 @@
       - porsmo
       - procs
       - ripgrep
-      - rtx-cli
       - speedtest-rs
       - starship
       - wiki-tui
