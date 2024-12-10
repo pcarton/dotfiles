@@ -1,7 +1,7 @@
 def --env cd [dest: string = "~"] {
   z $dest
 
-  if ($"(pwd)/.git" | path exists) {
+  if ( (git rev-parse | complete | get exit_code) == 0) {
     git fetch
   }
 }

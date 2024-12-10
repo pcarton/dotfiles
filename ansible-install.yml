@@ -122,7 +122,6 @@
       - name: zellij
         classic: true
     cargo_packages:
-      - bacon
       - bat
       - bottom
       - cargo-info
@@ -169,8 +168,26 @@
         dest: "{{ ansible_env.HOME }}/git-delta/themes.gitconfig"
       - src: "{{ playbook_dir }}/act-config.actrc"
         dest: "{{ ansible_env.HOME }}/.actrc"
+      - src: "{{ playbook_dir }}/nu_scripts/btm-completions.nu"
+        dest: "{{ ansible_env.HOME }}/.nu_scripts/btm-completions.nu"
+      - src: "{{ playbook_dir }}/nu_scripts/curl-completions.nu"
+        dest: "{{ ansible_env.HOME }}/.nu_scripts/curl-completions.nu"
+      - src: "{{ playbook_dir }}/nu_scripts/docker-completions.nu"
+        dest: "{{ ansible_env.HOME }}/.nu_scripts/docker-completions.nu"
+      - src: "{{ playbook_dir }}/nu_scripts/gh-completions.nu"
+        dest: "{{ ansible_env.HOME }}/.nu_scripts/gh-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/git-completions.nu"
         dest: "{{ ansible_env.HOME }}/.nu_scripts/git-completions.nu"
+      - src: "{{ playbook_dir }}/nu_scripts/nix-completions.nu"
+        dest: "{{ ansible_env.HOME }}/.nu_scripts/nix-completions.nu"
+      - src: "{{ playbook_dir }}/nu_scripts/rg-completions.nu"
+        dest: "{{ ansible_env.HOME }}/.nu_scripts/rg-completions.nu"
+      - src: "{{ playbook_dir }}/nu_scripts/ssh-completions.nu"
+        dest: "{{ ansible_env.HOME }}/.nu_scripts/ssh-completions.nu"
+      - src: "{{ playbook_dir }}/nu_scripts/vscode-completions.nu"
+        dest: "{{ ansible_env.HOME }}/.nu_scripts/vscode-completions.nu"
+      - src: "{{ playbook_dir }}/nu_scripts/zellij-completions.nu"
+        dest: "{{ ansible_env.HOME }}/.nu_scripts/zellij-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/cd.nu"
         dest: "{{ ansible_env.HOME }}/.nu_scripts/cd.nu"
       - src: "{{ playbook_dir }}/bash_scripts/pull-in-depependabot.sh"
