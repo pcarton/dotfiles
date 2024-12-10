@@ -561,6 +561,15 @@ $env.config = {
 source ~/.cache/starship/init.nu
 source ~/.zoxide.nu
 source ~/aliases.sh
-source ~/.nu_scripts/cd.nu
 
-use ~/.nu_scripts/git-completions.nu *
+source ~/.nu_scripts/btm-completions.nu
+source ~/.nu_scripts/cd.nu
+source ~/.nu_scripts/curl-completions.nu
+source ~/.nu_scripts/docker-completions.nu
+source ~/.nu_scripts/gh-completions.nu
+source ~/.nu_scripts/git-completions.nu
+source ~/.nu_scripts/nix-completions.nu
+source ~/.nu_scripts/rg-completions.nu
+source ~/.nu_scripts/ssh-completions.nu
+source ~/.nu_scripts/vscode-completions.nu
+source ~/.nu_scripts/zellij-completions.nu
