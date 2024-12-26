@@ -4,6 +4,9 @@ scope = "text.markdown"
 injection-regex = "markdown"
 file-types = ["md"]
 indent = { tab-width = 2, unit = "  " }
+formatter = { command = "dprint", args = ["fmt", "--stdin", "md"]}
+auto-format = true
+rulers = [120]
 
 [[language]]
 name = "rust"

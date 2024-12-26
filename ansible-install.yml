@@ -24,8 +24,9 @@
       - kubectx
       - kustomize
       - llvm
-      - mas
+      - marksman
       - marta
+      - mas
       - mc
       - nmap
       - node
@@ -103,6 +104,8 @@
         classic: true
       - name: kustomize
         classic: false
+      - name: marksman
+        classic: false
       - name: popeye
         classic: false
       - name: slides
@@ -116,6 +119,7 @@
       - bottom
       - cargo-info
       - csvlens
+      - dprint
       - du-dust
       - eza
       - fd-find
@@ -198,6 +202,8 @@
         dest: "{{ ansible_env.HOME }}/.config/zellij/config.kdl"
       - src: "{{ playbook_dir }}/zellij-layouts"
         dest: "{{ ansible_env.HOME }}/.config/zellij/layouts"
+      - src: "{{ playbook_dir }}/dprint.json"
+        dest: "{{ ansible_env.HOME }}/.dprint.json"
     osx_config_dirs:
       - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
     osx_dotfiles:
