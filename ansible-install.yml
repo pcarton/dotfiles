@@ -116,8 +116,8 @@
         classic: true
       - name: helm
         classic: true
-      - name: kustomize
-        classic: false
+      # - name: kustomize
+      #   classic: false
       - name: marksman
         classic: false
       - name: popeye
