@@ -13,4 +13,5 @@ code --install-extension hashicorp.terraform
 code --install-extension ms-azuretools.vscode-docker
 code --install-extension ms-vscode-remote.remote-containers
 code --install-extension rust-lang.rust-analyzer
+code --install-extension tomoki1207.pdf
 code --install-extension yzhang.markdown-all-in-one

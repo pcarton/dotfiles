@@ -17,6 +17,7 @@
       - graphviz
       - helix
       - helm
+      - homebrew/cask/basictex
       - hugo
       - jq
       - k9s
@@ -31,6 +32,7 @@
       - nmap
       - node
       - npm
+      - pandoc
       - pipx
       - slides
       - terraform-ls
@@ -85,6 +87,7 @@
       - nmap
       - nodejs
       - npm
+      - pandoc
       - pkg-config
       - python3-dev
       - python3-pip
@@ -92,6 +95,7 @@
       - python3-virtualenv
       - snapd
       - terraform-ls
+      - texlive
       # - tfenv # TODO
     snap_packages:
       - name: core
