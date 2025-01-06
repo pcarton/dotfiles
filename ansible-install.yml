@@ -215,6 +215,8 @@
         dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/env.nu"
       - src: "{{ playbook_dir }}/config.nu"
         dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/config.nu"
+      - src: "{{ playbook_dir }}/macos-aliases.sh"
+        dest: "{{ ansible_env.HOME }}/macos-aliases.sh"
     debian_config_dirs:
       - "{{ ansible_env.HOME }}/.config/nushell"
     debian_dotfiles:
