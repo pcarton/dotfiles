@@ -561,7 +561,10 @@ $env.config = {
 source ~/.cache/starship/init.nu
 source ~/.zoxide.nu
 source ~/aliases.sh
-source ~/macos-aliases.sh
+
+if $"(sys host | get name)" == 'Darwin' {
+  source ~/macos-aliases.sh
+}
 
 source ~/.nu_scripts/btm-completions.nu
 source ~/.nu_scripts/cd.nu
