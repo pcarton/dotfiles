@@ -24,6 +24,7 @@
       - kubectl
       - kubectx
       - kustomize
+      - krita
       - llvm
       - marksman
       - marta
@@ -46,6 +47,7 @@
       - 1099568401 # Home Assistant
       - 937984704 # Amphetamine
       - 1452453066 # Hidden Bar
+      - 571213070 # DaVinci Resolve
     debian_apt_keys:
       - name: docker
         key_url: "https://download.docker.com/linux/raspbian/gpg"
@@ -80,6 +82,7 @@
       # - k9s # TODO
       - kubectl
       - kubectx # TODO
+      - krita
       - libasound2-dev
       - libssl-dev
       - llvm
