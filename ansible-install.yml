@@ -8,6 +8,7 @@
       - act
       - alacritty
       - cmake
+      - colima
       - coreutils
       - derailed/popeye/popeye
       - font-sauce-code-pro-nerd-font
