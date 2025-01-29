@@ -11,6 +11,7 @@
       - colima
       - coreutils
       - derailed/popeye/popeye
+      - docker
       - font-sauce-code-pro-nerd-font
       - geckodriver
       - gh
