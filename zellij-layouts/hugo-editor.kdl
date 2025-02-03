@@ -9,12 +9,7 @@ layout {
     }
   }
 
-  tab name="Scratch" {
-    pane name="shell" {
-      borderless true
-    }
-  }
-  tab name="Editor" focus=true {
+  tab name="Hugo Editor" focus=true {
     pane split_direction="vertical" {
       pane name="helix"{
         command "hx" 
@@ -32,13 +27,6 @@ layout {
           args "--" "hugo server -D" "cd ..; act -W .github/workflows/spellcheck.yaml --container-architecture linux/amd64"
        }
       }
-    }
-  }
-  tab name="Frogmouth" {
-    pane {
-      cwd "hugo/content"
-      command "frogmouth"
-      args "."
     }
   }
 }
