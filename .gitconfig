@@ -2,15 +2,28 @@
   path = ~/git-delta/themes.gitconfig
 
 [user]
-# Please adapt and uncomment the following lines:
   name = Patrick Carton
-  email = patrick.d.carton@gmail.com 
+  email = patrick.d.carton@gmail.com
+
+[init]
+  defaultBranch = main
+
+[column]
+  ui = auto
+
+[branch]
+  sort = -committerdate
+
+[tag]
+  sort = version:refname
 
 [pull]
   rebase = false
 
 [push]
+  default = simple
   autoSetupRemote = true
+  followTags = true
 
 [core]
   pager = delta
@@ -23,8 +36,15 @@
   navigate = true    # use n and N to move between diff sections
   side-by-side = true
   features = tangara-chilensis
+
 [merge]
   conflictstyle = diff3
 
 [diff]
-  colorMoved = default
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
+
+[help]
+  autocorrect = prompt
