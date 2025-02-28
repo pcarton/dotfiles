@@ -19,7 +19,7 @@
       - graphviz
       - helix
       - helm
-      - homebrew/cask/basictex
+      - basictex
       - hugo
       - jq
       - k9s
@@ -32,6 +32,7 @@
       - marta
       - mas
       - mc
+      - newsboat
       - nmap
       - node
       - npm
@@ -102,6 +103,7 @@
       - libssl-dev
       - llvm
       - mc
+      - newsboat
       - nmap
       - nodejs
       - npm
@@ -225,6 +227,8 @@
         dest: "{{ ansible_env.HOME }}/.config/zellij/config.kdl"
       - src: "{{ playbook_dir }}/zellij-layouts"
         dest: "{{ ansible_env.HOME }}/.config/zellij/layouts"
+      - src: "{{ playbook_dir }}/newsboat"
+        dest: "{{ ansible_env.HOME }}/.newsboat"
       - src: "{{ playbook_dir }}/dprint.json"
         dest: "{{ ansible_env.HOME }}/.dprint.json"
     osx_config_dirs:
