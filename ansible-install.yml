@@ -217,6 +217,8 @@
         dest: "{{ ansible_env.HOME }}/.newsboat"
       - src: "{{ playbook_dir }}/dprint.json"
         dest: "{{ ansible_env.HOME }}/.dprint.json"
+      - src: "{{ playbook_dir }}/gitui-theme.ron"
+        dest: "{{ ansible_env.HOME }}/.config/gitui/theme.ron"
     osx_config_dirs:
       - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
     osx_dotfiles:
