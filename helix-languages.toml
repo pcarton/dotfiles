@@ -14,3 +14,8 @@ auto-format = true
 
 [language-server.rust-analyzer.config.check]
 command = "clippy"
+
+[[language]]
+name = "html"
+file-types = ["html,htm"]
+auto-format = false
