@@ -1,2 +1,4 @@
 [manager]
 ratio = [1, 4, 3] # Using Yazi as a sidebar in most cases
+show_hidden = true
+show_symlink = true
