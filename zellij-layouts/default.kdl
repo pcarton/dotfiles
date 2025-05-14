@@ -9,8 +9,11 @@ layout {
     }
   }
 
+  tab name="File Explorer" {
+    pane name="Yazi" borderless=true focus=true command="yazi"
+  }
   tab name="Scratch" {
-    pane name="Shell" borderless=true
+    pane name="Shell" borderless=true focus=true
   }
   tab name="Quad" focus=true {
     pane split_direction="horizontal" {

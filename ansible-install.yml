@@ -146,6 +146,8 @@
       - speedtest-rs
       - starship
       - wiki-tui
+      - yazi-fm
+      - yazi-cli
       - zellij
       - zoxide
     npm_packages:
@@ -164,6 +166,7 @@
       - "{{ ansible_env.HOME }}/.config/zellij"
       - "{{ ansible_env.HOME }}/.bash_scripts"
       - "{{ ansible_env.HOME }}/git-delta"
+      - "{{ ansible_env.HOME }}/.config/yazi"
     common_dotfiles:
       - src: "{{ playbook_dir }}/starship.toml"
         dest: "{{ ansible_env.HOME }}/.config/starship.toml"
@@ -219,6 +222,8 @@
         dest: "{{ ansible_env.HOME }}/.dprint.json"
       - src: "{{ playbook_dir }}/gitui-theme.ron"
         dest: "{{ ansible_env.HOME }}/.config/gitui/theme.ron"
+      - src: "{{ playbook_dir }}/yazi.toml"
+        dest: "{{ ansible_env.HOME }}/.config/yazi/yazi.toml"
     osx_config_dirs:
       - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
     osx_dotfiles:
