@@ -1,4 +1,5 @@
 [status]
+overall    = { fg = "black" }
 # Permissions
 perm_sep   = { fg = "#838ba7" }
 perm_type  = { fg = "#8caaee" }
@@ -7,6 +8,6 @@ perm_write = { fg = "#e78284" }
 perm_exec  = { fg = "#a6d189" }
 
 # Progress
-progress_label  = { fg = "#ffffff", bold = true }
-progress_normal = { fg = "#8caaee", bg = "#51576d" }
+progress_label  = { fg = "black", bold = true }
+progress_normal = { fg = "black", bg = "#51576d" }
 progress_error  = { fg = "#e78284", bg = "#51576d" }

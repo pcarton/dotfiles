@@ -15,7 +15,6 @@
       - font-sauce-code-pro-nerd-font
       - geckodriver
       - gh
-      # - glow - open question that's concerning https://github.com/charmbracelet/glow/issues/615
       - graphviz
       - helix
       - helm
@@ -38,7 +37,6 @@
       - npm
       - pandoc
       - pipx
-      - slides
       - terraform-ls
       - tfenv
       - vlc
@@ -119,8 +117,6 @@
         classic: false
       - name: popeye
         classic: false
-      - name: slides
-        classic: false
       - name: todoist
         classic: false
       - name: yq
@@ -132,19 +128,26 @@
       - csvlens
       - dprint
       - du-dust
+      - dua
       - eza
       - fd-find
+      - fselect
       - git-delta
       - gitui
       - hwatch
+      - hyperfine
       - irust
       - mprocs
       - nu
       - porsmo
+      - presenterm
       - procs
       - ripgrep
+      - ripgrep_all
+      - rusty-man
       - speedtest-rs
       - starship
+      - tokei
       - wiki-tui
       - yazi-fm
       - yazi-cli
