@@ -12,6 +12,7 @@
       - coreutils
       - derailed/popeye/popeye
       - docker
+      - exiftool
       - font-sauce-code-pro-nerd-font
       - geckodriver
       - gh
@@ -84,6 +85,7 @@
       - kubectx # TODO
       - krita
       - libasound2-dev
+      - libimage-exiftool-perl
       - libssl-dev
       - llvm
       - newsboat
