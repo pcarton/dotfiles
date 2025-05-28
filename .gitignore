@@ -1,1 +1,3 @@
 **/*.db
+newsboat/history.cmdline
+newsboat/urls
