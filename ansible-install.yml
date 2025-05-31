@@ -16,6 +16,8 @@
       - font-sauce-code-pro-nerd-font
       - geckodriver
       - gh
+      - gifsicle
+      - gnupg
       - graphviz
       - helix
       - helm
@@ -75,10 +77,12 @@
       - docker
       # - font-hack-nerd-font # TODO
       - gh
+      - gifsicle
       - google-cloud-cli
       - graphviz
       - helix
       - hugo
+      - jpegtran
       - jq
       # - k9s # TODO
       - kubectl

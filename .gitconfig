@@ -26,11 +26,20 @@
   followTags = true
 
 [core]
+  compression = 9
+  whitespace = error
+  preloadindex = true
   pager = delta
   editor = hx
 
+[status]
+  branch = true
+  showStash = true
+  showUntrackedFiles = all
+
 [interactive]
   diffFilter = delta --color-only
+  singlekey = true
 
 [delta]
   navigate = true    # use n and N to move between diff sections
@@ -43,8 +52,16 @@
 [diff]
   algorithm = histogram
   colorMoved = plain
+  context = 3
+  renames = copies
   mnemonicPrefix = true
   renames = true
 
 [help]
   autocorrect = prompt
+
+[url "git@github.com:pcarton/"]
+  insteadOf = "pcarton:"
+
+[url "git@github.com"]
+  insteadOf = "gh:"
