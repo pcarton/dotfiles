@@ -1,4 +1,15 @@
-[manager]
+[mgr]
 ratio = [1, 4, 3] # Using Yazi as a sidebar in most cases
 show_hidden = true
 show_symlink = true
+
+[opener]
+csv-view = [
+  { run = 'csvlens "$@"', block = true, for = "macos" },
+  { run = 'csvlens "$@"', block = true, for = "linux" }
+]
+
+[open]
+prepend_rules = [
+  { name = "*.csv", use = "csv-view" }
+]
