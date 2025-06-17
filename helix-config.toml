@@ -5,6 +5,11 @@ true-color = true
 gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
 line-number = "relative"
 soft-wrap.enable = true
+# These are currently in master but not a release, so commenting for now
+# # Trim whitespace preceding line endings on write (default false)
+# trim-trailing-whitespace = true
+# # Trim extra line endings after the final one on write (default false)
+# trim-final-newlines = true
 
 [editor.whitespace.render]
 space = "all"
