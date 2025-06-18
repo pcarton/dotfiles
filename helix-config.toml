@@ -10,6 +10,10 @@ soft-wrap.enable = true
 # trim-trailing-whitespace = true
 # # Trim extra line endings after the final one on write (default false)
 # trim-final-newlines = true
+end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+cursor-line = "error"
 
 [editor.whitespace.render]
 space = "all"
