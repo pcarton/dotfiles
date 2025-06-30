@@ -13,6 +13,7 @@
       - derailed/popeye/popeye
       - docker
       - exiftool
+      - ffmpeg
       - font-sauce-code-pro-nerd-font
       - geckodriver
       - gh
@@ -39,6 +40,7 @@
       - npm
       - pandoc
       - pipx
+      - poppler
       - terraform-ls
       - tfenv
       - vlc
@@ -232,18 +234,24 @@
         dest: "{{ ansible_env.HOME }}/.config/yazi/theme.toml"
     osx_config_dirs:
       - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
+      - "/Users/{{ ansible_user_id }}/Library/Application Support/ripgrep-all"
     osx_dotfiles:
       - src: "{{ playbook_dir }}/env.nu"
         dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/env.nu"
       - src: "{{ playbook_dir }}/config.nu"
         dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/config.nu"
+      - src: "{{ playbook_dir }}/ripgrep-all.jsonc"
+        dest: "/Users/{{ ansible_user_id }}/Library/Application Support/ripgrep-all/config.jsonc"
     debian_config_dirs:
       - "{{ ansible_env.HOME }}/.config/nushell"
+      - "{{ ansible_env.HOME }}/.config/ripgrep-all"
     debian_dotfiles:
       - src: "{{ playbook_dir }}/env.nu"
         dest: "{{ ansible_env.HOME }}/.config/nushell/env.nu"
       - src: "{{ playbook_dir }}/config.nu"
         dest: "{{ ansible_env.HOME }}/.config/nushell/config.nu"
+      - src: "{{ playbook_dir }}/ripgrep-all.jsonc"
+        dest: "{{ ansible_env.HOME }}/.config/ripgrep-all/config.jsonc"
 
   tasks:
     - name: Upgrade all with OSX Homebrew
