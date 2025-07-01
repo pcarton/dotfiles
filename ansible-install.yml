@@ -15,6 +15,7 @@
       - exiftool
       - ffmpeg
       - font-sauce-code-pro-nerd-font
+      - fzf
       - geckodriver
       - gh
       - gifsicle
@@ -78,6 +79,7 @@
       - cmake
       - docker
       # - font-hack-nerd-font # TODO
+      - fzf
       - gh
       - gifsicle
       - google-cloud-cli
