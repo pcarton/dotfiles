@@ -40,3 +40,10 @@ family = "SauceCodePro Nerd Font Mono"
 
 [window]
 option_as_alt = "Both"
+
+# Keybinds
+[keyboard]
+bindings = [
+  {key = "T", mods = "Command", action = "ReceiveChar"},
+  {key = "W", mods = "Command", action = "ReceiveChar"},
+]

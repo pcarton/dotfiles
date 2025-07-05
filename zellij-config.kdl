@@ -5,6 +5,8 @@ keybinds {
         // bind "Alt c" { Copy; }
         bind "Super Alt Right" { GoToNextTab; }
         bind "Super Alt Left" { GoToPreviousTab; }
+        bind "Super t" { NewTab; SwitchToMode "Normal"; }
+        bind "Super w" { CloseTab; SwitchToMode "Normal"; }
     }
     locked {
         bind "Ctrl g" { SwitchToMode "Normal"; }
