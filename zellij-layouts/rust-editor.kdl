@@ -8,12 +8,7 @@ layout {
       plugin location="zellij:status-bar"
     }
   }
-  tab name="Scratch" {
-    pane name="shell" {
-      borderless true
-    }
-  }
-  tab name="Editor" focus=true {
+  tab name="Rust" focus=true {
     pane split_direction="vertical" size="60%" {
         pane edit="src/main.rs"
         pane edit="Cargo.toml"
