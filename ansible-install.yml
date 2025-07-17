@@ -166,6 +166,7 @@
       - '@ansible/ansible-language-server'
       - bash-language-server
       - yaml-language-server
+      - tombi
     pip_packages:
       - frogmouth
       - termsaver
