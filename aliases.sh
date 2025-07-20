@@ -17,4 +17,5 @@ alias gconf = gcloud config configurations
 alias pull-dependabot = ~/.bash_scripts/pull-in-depependabot.sh
 alias whatsmyip = ~/.bash_scripts/get-ip.sh
 alias get-ip = ~/.bash_scripts/get-ip.sh
+alias compare-dirs = ~/.bash_scripts/compare-dirs.sh
 alias watch = hwatch

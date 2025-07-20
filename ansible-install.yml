@@ -54,6 +54,7 @@
       - 937984704 # Amphetamine
       - 1452453066 # Hidden Bar
       - 571213070 # DaVinci Resolve
+      - 1497506650 # Yubico Authenticator
     debian_apt_keys:
       - name: docker
         key_url: "https://download.docker.com/linux/raspbian/gpg"
@@ -213,6 +214,8 @@
         dest: "{{ ansible_env.HOME }}/.bash_scripts/pull-in-depependabot.sh"
       - src: "{{ playbook_dir }}/bash_scripts/get-ip.sh"
         dest: "{{ ansible_env.HOME }}/.bash_scripts/get-ip.sh"
+      - src: "{{ playbook_dir }}/bash_scripts/compare-dirs.sh"
+        dest: "{{ ansible_env.HOME }}/.bash_scripts/compare-dirs.sh"
       - src: "{{ playbook_dir }}/alacritty.toml"
         dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.toml"
       - src: "{{ playbook_dir }}/aliases.sh"
