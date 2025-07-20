@@ -1,12 +1,31 @@
 #!/bin/bash
 
 TEMP_DIR=$(mktemp -d)
+echo "Created temporary directory ${TEMP_DIR}"
 
-function generate-checksum() {
+function generate-filelist() {
   DIRECTORY=$1
   DIRECTORY_SANITIZED=$(echo "$1" | sed 's|/|_|g')
+  FILES_FILE_PATH="${TEMP_DIR}/${DIRECTORY_SANITIZED}.fullfiles.txt"
+  RELATIVE_FILES_FILE_PATH="${TEMP_DIR}/${DIRECTORY_SANITIZED}.files.txt"
 
-  find $DIRECTORY -type f -exec md5sum {} + | sort -k 2 > "${TEMP_DIR}/${DIRECTORY_SANITIZED}.checksums.txt"
+  find $DIRECTORY -type f -print0 | xargs -0 -rn 1 -I% echo '%' > ${FILES_FILE_PATH}
+  sed "s|^${DIRECTORY}||g" ${FILES_FILE_PATH} > ${RELATIVE_FILES_FILE_PATH}
+}
+
+function generate-checksums() {
+  DIRECTORY=$1
+  DIRECTORY_SANITIZED=$(echo "$1" | sed 's|/|_|g')
+  FILE_LIST="${TEMP_DIR}/${DIRECTORY_SANITIZED}.fullfiles.txt"
+  CHECKSUM_FILE="${TEMP_DIR}/${DIRECTORY_SANITIZED}.checksums.txt"
+
+  echo -n "" > ${CHECKSUM_FILE}
+
+  while IFS='\n' read FILE; do
+    echo "Generating Checksum for $FILE"
+    md5sum "$FILE" >> ${CHECKSUM_FILE}
+  sed -i "" "s|  ${DIRECTORY}|  |g" ${CHECKSUM_FILE}
+  done < "${FILE_LIST}"
 }
 
 DIR_1=$1
@@ -14,8 +33,18 @@ DIR_2=$2
 DIR_1_SANITIZED=$(echo "$DIR_1" | sed 's|/|_|g')
 DIR_2_SANITIZED=$(echo "$DIR_2" | sed 's|/|_|g')
 
+generate-filelist $DIR_1
+generate-filelist $DIR_2
 
-generate-checksum $DIR_1
-generate-checksum $DIR_2
+diff -u --suppress-common-lines "${TEMP_DIR}/${DIR_1_SANITIZED}.files.txt" "${TEMP_DIR}/${DIR_2_SANITIZED}.files.txt"
+FILE_LIST_DIFF_RESULT=$?
 
-diff -u "${TEMP_DIR}/${DIR_1_SANITIZED}.checksums.txt" "${TEMP_DIR}/${DIR_2_SANITIZED}.checksums.txt"
+if [[ $FILE_LIST_DIFF_RESULT -ne 0 ]]; then
+    echo "Differences in files present, skipping checksum validation"
+else
+  echo "File lists match, generating checksums for deeper validation"
+  generate-checksums $DIR_1
+  generate-checksums $DIR_2
+
+  diff -u --suppress-common-lines "${TEMP_DIR}/${DIR_1_SANITIZED}.checksums.txt" "${TEMP_DIR}/${DIR_2_SANITIZED}.checksums.txt"
+fi
