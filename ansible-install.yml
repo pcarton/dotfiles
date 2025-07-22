@@ -40,6 +40,7 @@
       - node
       - npm
       - pandoc
+      - parallel
       - pipx
       - poppler
       - terraform-ls

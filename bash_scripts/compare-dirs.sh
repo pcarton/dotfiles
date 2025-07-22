@@ -11,6 +11,8 @@ function generate-filelist() {
 
   find $DIRECTORY -type f -print0 | xargs -0 -rn 1 -I% echo '%' > ${FILES_FILE_PATH}
   sed "s|^${DIRECTORY}||g" ${FILES_FILE_PATH} > ${RELATIVE_FILES_FILE_PATH}
+  sort -o ${RELATIVE_FILES_FILE_PATH} ${RELATIVE_FILES_FILE_PATH}
+  sort -o ${FILES_FILE_PATH} ${FILES_FILE_PATH}
 }
 
 function generate-checksums() {
@@ -26,6 +28,8 @@ function generate-checksums() {
     md5sum "$FILE" >> ${CHECKSUM_FILE}
   sed -i "" "s|  ${DIRECTORY}|  |g" ${CHECKSUM_FILE}
   done < "${FILE_LIST}"
+
+  sort -o ${CHECKSUM_FILE} ${CHECKSUM_FILE}
 }
 
 DIR_1=$1
@@ -42,9 +46,11 @@ FILE_LIST_DIFF_RESULT=$?
 if [[ $FILE_LIST_DIFF_RESULT -ne 0 ]]; then
     echo "Differences in files present, skipping checksum validation"
 else
-  echo "File lists match, generating checksums for deeper validation"
+  echo "Generating checksums for deeper validation"
   generate-checksums $DIR_1
   generate-checksums $DIR_2
 
   diff -u --suppress-common-lines "${TEMP_DIR}/${DIR_1_SANITIZED}.checksums.txt" "${TEMP_DIR}/${DIR_2_SANITIZED}.checksums.txt"
 fi
+
+open ${TEMP_DIR}
