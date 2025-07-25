@@ -56,6 +56,7 @@
       - 1452453066 # Hidden Bar
       - 571213070 # DaVinci Resolve
       - 1497506650 # Yubico Authenticator
+      - 1475387142 # Tailscale
     debian_apt_keys:
       - name: docker
         key_url: "https://download.docker.com/linux/raspbian/gpg"
