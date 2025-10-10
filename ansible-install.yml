@@ -11,6 +11,7 @@
       - colima
       - coreutils
       - derailed/popeye/popeye
+      - diffoci
       - docker
       - exiftool
       - ffmpeg
