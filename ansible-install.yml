@@ -51,12 +51,10 @@
       - yq
     linux_homebrew_packages:
       - act
-      # - alacritty Needs Mac OS
       - alsa-lib
       - cmake
       - colima
       - coreutils
-      # - derailed/popeye/popeye
       - diffoci
       - docker
       - exiftool
@@ -70,18 +68,14 @@
       - graphviz
       - helix
       - helm
-      # - basictex MacOS is required
       - hugo
       - jq
       - k9s
       - kubectl
       - kubectx
       - kustomize
-      # - krita MacOS is required
       - llvm
       - marksman
-      # - marta MacOS is required
-      # - mas MacOS is required
       - newsboat
       - nmap
       - node
@@ -92,7 +86,6 @@
       - poppler
       - terraform-ls
       - tfenv
-      # - vlc
       - wget
       - yq
     osx_app_store_apps:
@@ -161,7 +154,13 @@
       - texlive
       # - tfenv # TODO
     flatpak_packages:
-      - name: org.alacritty.Alacritty
+      - name: org.videolan.VLC
+        remote: flathub
+      - name: com.discordapp.Discord
+        remote: flathub
+      - name: org.prismlauncher.PrismLauncher
+        remote: flathub
+      - name: org.kde.krita
         remote: flathub
     snap_packages:
       - name: core
@@ -554,6 +553,23 @@
       environment:
         RUSTC_WRAPPER: "{{ ansible_facts[\"env\"].HOME }}/.cargo/bin/sccache"
       loop: "{{ cargo_packages }}"
+      tags:
+        - install
+        - upgrade
+        - rust
+
+    - name: Install Alacritty via Cargo
+      community.general.cargo:
+        name: "alacritty"
+        path: "{{ ansible_facts[\"env\"].HOME }}/.cargo"
+        executable: "{{ ansible_facts[\"env\"].HOME }}/.cargo/bin/cargo"
+        state: latest
+        locked: true
+      register: result
+      until: result is successful
+      environment:
+        RUSTC_WRAPPER: "{{ ansible_facts[\"env\"].HOME }}/.cargo/bin/sccache"
+      when: ansible_facts["os_family"] == "RedHat"
       tags:
         - install
         - upgrade
