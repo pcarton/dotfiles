@@ -374,8 +374,9 @@
     - name: Install with Flatpak
       become: false
       community.general.flatpak:
-        name: "{{ item }}"
+        name: "{{ item.name }}"
         state: present
+        remote: "{{ item.remote }}"
       register: result
       until: result is successful
       loop: "{{ flatpak_packages }}"
