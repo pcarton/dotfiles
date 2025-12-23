@@ -371,14 +371,14 @@
       tags:
         - install
 
-    - name: Install with Flatpack
+    - name: Install with Flatpak
       become: false
       community.general.flatpak:
         name: "{{ item }}"
         state: present
       register: result
       until: result is successful
-      loop: "{{ flatpack_packages }}"
+      loop: "{{ flatpak_packages }}"
       when: ansible_facts["os_family"] == "RedHat"
       tags:
         - install
