@@ -570,22 +570,22 @@
         - upgrade
         - rust
 
-    - name: Install Alacritty via Cargo
-      community.general.cargo:
-        name: "alacritty"
-        path: "{{ ansible_facts[\"env\"].HOME }}/.cargo"
-        executable: "{{ ansible_facts[\"env\"].HOME }}/.cargo/bin/cargo"
-        state: latest
-        locked: true
-      register: result
-      until: result is successful
-      environment:
-        RUSTC_WRAPPER: "{{ ansible_facts[\"env\"].HOME }}/.cargo/bin/sccache"
-      when: ansible_facts["os_family"] == "RedHat"
-      tags:
-        - install
-        - upgrade
-        - rust
+    # - name: Install Alacritty via Cargo
+    #   community.general.cargo:
+    #     name: "alacritty"
+    #     path: "{{ ansible_facts[\"env\"].HOME }}/.cargo"
+    #     executable: "{{ ansible_facts[\"env\"].HOME }}/.cargo/bin/cargo"
+    #     state: latest
+    #     locked: true
+    #   register: result
+    #   until: result is successful
+    #   environment:
+    #     RUSTC_WRAPPER: "{{ ansible_facts[\"env\"].HOME }}/.cargo/bin/sccache"
+    #   when: ansible_facts["os_family"] == "RedHat"
+    #   tags:
+    #     - install
+    #     - upgrade
+    #     - rust
 
     - name: Install pipx
       ansible.builtin.pip:
