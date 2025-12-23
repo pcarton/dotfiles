@@ -4,7 +4,7 @@
   become: false
   vars:
     the_user: "{{ ansible_facts[\"user_id\"] }}"
-    osx_homebrew_packages:
+    homebrew_packages:
       - act
       - alacritty
       - cmake
@@ -263,18 +263,18 @@
         dest: "{{ ansible_facts[\"env\"].HOME }}/.config/ripgrep-all/config.jsonc"
 
   tasks:
-    - name: Upgrade all with OSX Homebrew
+    - name: Upgrade all with Homebrew
       become: false
       community.general.homebrew:
         update_homebrew: true
         upgrade_all: true
       register: result
       until: result is successful
-      when: ansible_facts["os_family"] == "Darwin"
+      when: (ansible_facts["os_family"] == "Darwin") or (ansible_facts["os_family"] == "RedHat")
       tags:
         - upgrade
 
-    - name: Install with OSX Homebrew
+    - name: Install with Homebrew
       become: false
       community.general.homebrew:
         name: "{{ item }}"
@@ -282,8 +282,8 @@
         update_homebrew: true
       register: result
       until: result is successful
-      loop: "{{ osx_homebrew_packages }}"
-      when: ansible_facts["os_family"] == "Darwin"
+      loop: "{{ homebrew_packages }}"
+      when: (ansible_facts["os_family"] == "Darwin") or (ansible_facts["os_family"] == "RedHat")
       tags:
         - install
 
