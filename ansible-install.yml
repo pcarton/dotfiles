@@ -59,6 +59,8 @@
       - exiftool
       - ffmpeg
       - font-sauce-code-pro-nerd-font
+      - freetype
+      - fontconfig
       - fzf
       - geckodriver
       - gh
@@ -74,6 +76,8 @@
       - kubectx
       - kustomize
       - llvm
+      - libxcb
+      - libxkbcommon
       - marksman
       - newsboat
       - nmap
