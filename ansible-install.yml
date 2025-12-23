@@ -3,7 +3,7 @@
   hosts: localhost
   become: false
   vars:
-    the_user: "{{ ansible_user_id }}"
+    the_user: "{{ ansible_facts[\"user_id\"] }}"
     osx_homebrew_packages:
       - act
       - alacritty
@@ -72,7 +72,7 @@
         key_url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
         key_path: "/usr/share/keyrings/cloud.google.gpg"
     debian_apt_repositories:
-      - "deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/raspbian {{ ansible_distribution_release }} stable"
+      - "deb [arch={{ ansible_facts[\"architecture\"] }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/raspbian {{ ansible_distribution_release }} stable"
       - "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /"
       - ppa:maveonair/helix-editor
       - "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
@@ -175,92 +175,92 @@
       - frogmouth
       - termsaver
     common_config_dirs:
-      - "{{ ansible_env.HOME }}/.config/helix"
-      - "{{ ansible_env.HOME }}/.nu_scripts"
-      - "{{ ansible_env.HOME }}/.config/alacritty"
-      - "{{ ansible_env.HOME }}/.config/zellij"
-      - "{{ ansible_env.HOME }}/.bash_scripts"
-      - "{{ ansible_env.HOME }}/git-delta"
-      - "{{ ansible_env.HOME }}/.config/yazi"
+      - "{{ ansible_facts[\"env\"].HOME }}/.config/helix"
+      - "{{ ansible_facts[\"env\"].HOME }}/.nu_scripts"
+      - "{{ ansible_facts[\"env\"].HOME }}/.config/alacritty"
+      - "{{ ansible_facts[\"env\"].HOME }}/.config/zellij"
+      - "{{ ansible_facts[\"env\"].HOME }}/.bash_scripts"
+      - "{{ ansible_facts[\"env\"].HOME }}/git-delta"
+      - "{{ ansible_facts[\"env\"].HOME }}/.config/yazi"
     common_dotfiles:
       - src: "{{ playbook_dir }}/starship.toml"
-        dest: "{{ ansible_env.HOME }}/.config/starship.toml"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.config/starship.toml"
       - src: "{{ playbook_dir }}/.gitconfig"
-        dest: "{{ ansible_env.HOME }}/.gitconfig"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.gitconfig"
       - src: "{{ playbook_dir }}/git-delta/themes.gitconfig"
-        dest: "{{ ansible_env.HOME }}/git-delta/themes.gitconfig"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/git-delta/themes.gitconfig"
       - src: "{{ playbook_dir }}/act-config.actrc"
-        dest: "{{ ansible_env.HOME }}/.actrc"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.actrc"
       - src: "{{ playbook_dir }}/nu_scripts/btm-completions.nu"
-        dest: "{{ ansible_env.HOME }}/.nu_scripts/btm-completions.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.nu_scripts/btm-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/curl-completions.nu"
-        dest: "{{ ansible_env.HOME }}/.nu_scripts/curl-completions.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.nu_scripts/curl-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/docker-completions.nu"
-        dest: "{{ ansible_env.HOME }}/.nu_scripts/docker-completions.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.nu_scripts/docker-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/gh-completions.nu"
-        dest: "{{ ansible_env.HOME }}/.nu_scripts/gh-completions.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.nu_scripts/gh-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/git-completions.nu"
-        dest: "{{ ansible_env.HOME }}/.nu_scripts/git-completions.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.nu_scripts/git-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/nix-completions.nu"
-        dest: "{{ ansible_env.HOME }}/.nu_scripts/nix-completions.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.nu_scripts/nix-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/rg-completions.nu"
-        dest: "{{ ansible_env.HOME }}/.nu_scripts/rg-completions.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.nu_scripts/rg-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/ssh-completions.nu"
-        dest: "{{ ansible_env.HOME }}/.nu_scripts/ssh-completions.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.nu_scripts/ssh-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/vscode-completions.nu"
-        dest: "{{ ansible_env.HOME }}/.nu_scripts/vscode-completions.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.nu_scripts/vscode-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/zellij-completions.nu"
-        dest: "{{ ansible_env.HOME }}/.nu_scripts/zellij-completions.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.nu_scripts/zellij-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/cd.nu"
-        dest: "{{ ansible_env.HOME }}/.nu_scripts/cd.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.nu_scripts/cd.nu"
       - src: "{{ playbook_dir }}/bash_scripts/pull-in-depependabot.sh"
-        dest: "{{ ansible_env.HOME }}/.bash_scripts/pull-in-depependabot.sh"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.bash_scripts/pull-in-depependabot.sh"
       - src: "{{ playbook_dir }}/bash_scripts/get-ip.sh"
-        dest: "{{ ansible_env.HOME }}/.bash_scripts/get-ip.sh"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.bash_scripts/get-ip.sh"
       - src: "{{ playbook_dir }}/bash_scripts/compare-dirs.sh"
-        dest: "{{ ansible_env.HOME }}/.bash_scripts/compare-dirs.sh"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.bash_scripts/compare-dirs.sh"
       - src: "{{ playbook_dir }}/alacritty.toml"
-        dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.toml"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.config/alacritty/alacritty.toml"
       - src: "{{ playbook_dir }}/aliases.sh"
-        dest: "{{ ansible_env.HOME }}/aliases.sh"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/aliases.sh"
       - src: "{{ playbook_dir }}/helix-config.toml"
-        dest: "{{ ansible_env.HOME }}/.config/helix/config.toml"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.config/helix/config.toml"
       - src: "{{ playbook_dir }}/helix-languages.toml"
-        dest: "{{ ansible_env.HOME }}/.config/helix/languages.toml"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.config/helix/languages.toml"
       - src: "{{ playbook_dir }}/zellij-config.kdl"
-        dest: "{{ ansible_env.HOME }}/.config/zellij/config.kdl"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.config/zellij/config.kdl"
       - src: "{{ playbook_dir }}/zellij-layouts"
-        dest: "{{ ansible_env.HOME }}/.config/zellij/layouts"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.config/zellij/layouts"
       - src: "{{ playbook_dir }}/newsboat"
-        dest: "{{ ansible_env.HOME }}/.newsboat"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.newsboat"
       - src: "{{ playbook_dir }}/dprint.json"
-        dest: "{{ ansible_env.HOME }}/.dprint.json"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.dprint.json"
       - src: "{{ playbook_dir }}/gitui-theme.ron"
-        dest: "{{ ansible_env.HOME }}/.config/gitui/theme.ron"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.config/gitui/theme.ron"
       - src: "{{ playbook_dir }}/yazi/yazi.toml"
-        dest: "{{ ansible_env.HOME }}/.config/yazi/yazi.toml"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.config/yazi/yazi.toml"
       - src: "{{ playbook_dir }}/yazi/theme.toml"
-        dest: "{{ ansible_env.HOME }}/.config/yazi/theme.toml"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.config/yazi/theme.toml"
     osx_config_dirs:
-      - "/Users/{{ ansible_user_id }}/Library/Application Support/nushell"
-      - "/Users/{{ ansible_user_id }}/Library/Application Support/ripgrep-all"
+      - "/Users/{{ ansible_facts[\"user_id\"] }}/Library/Application Support/nushell"
+      - "/Users/{{ ansible_facts[\"user_id\"] }}/Library/Application Support/ripgrep-all"
     osx_dotfiles:
       - src: "{{ playbook_dir }}/env.nu"
-        dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/env.nu"
+        dest: "/Users/{{ ansible_facts[\"user_id\"] }}/Library/Application Support/nushell/env.nu"
       - src: "{{ playbook_dir }}/config.nu"
-        dest: "/Users/{{ ansible_user_id }}/Library/Application Support/nushell/config.nu"
+        dest: "/Users/{{ ansible_facts[\"user_id\"] }}/Library/Application Support/nushell/config.nu"
       - src: "{{ playbook_dir }}/ripgrep-all.jsonc"
-        dest: "/Users/{{ ansible_user_id }}/Library/Application Support/ripgrep-all/config.jsonc"
+        dest: "/Users/{{ ansible_facts[\"user_id\"] }}/Library/Application Support/ripgrep-all/config.jsonc"
     debian_config_dirs:
-      - "{{ ansible_env.HOME }}/.config/nushell"
-      - "{{ ansible_env.HOME }}/.config/ripgrep-all"
+      - "{{ ansible_facts[\"env\"].HOME }}/.config/nushell"
+      - "{{ ansible_facts[\"env\"].HOME }}/.config/ripgrep-all"
     debian_dotfiles:
       - src: "{{ playbook_dir }}/env.nu"
-        dest: "{{ ansible_env.HOME }}/.config/nushell/env.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.config/nushell/env.nu"
       - src: "{{ playbook_dir }}/config.nu"
-        dest: "{{ ansible_env.HOME }}/.config/nushell/config.nu"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.config/nushell/config.nu"
       - src: "{{ playbook_dir }}/ripgrep-all.jsonc"
-        dest: "{{ ansible_env.HOME }}/.config/ripgrep-all/config.jsonc"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.config/ripgrep-all/config.jsonc"
 
   tasks:
     - name: Upgrade all with OSX Homebrew
@@ -270,7 +270,7 @@
         upgrade_all: true
       register: result
       until: result is successful
-      when: ansible_os_family == "Darwin"
+      when: ansible_facts["os_family"] == "Darwin"
       tags:
         - upgrade
 
@@ -283,7 +283,7 @@
       register: result
       until: result is successful
       loop: "{{ osx_homebrew_packages }}"
-      when: ansible_os_family == "Darwin"
+      when: ansible_facts["os_family"] == "Darwin"
       tags:
         - install
 
@@ -293,7 +293,7 @@
         upgrade_all: true
       register: result
       until: result is successful
-      when: ansible_os_family == "Darwin"
+      when: ansible_facts["os_family"] == "Darwin"
       tags:
         - upgrade
 
@@ -305,7 +305,7 @@
       register: result
       until: result is successful
       loop: "{{ osx_app_store_apps }}"
-      when: ansible_os_family == "Darwin"
+      when: ansible_facts["os_family"] == "Darwin"
       tags:
         - install
 
@@ -314,7 +314,7 @@
       ansible.builtin.shell:
         cmd: "curl -L {{ item.key_url }} | gpg --dearmor --yes -o {{ item.key_path }}"
       register: result
-      when: ansible_os_family == "Debian"
+      when: ansible_facts["os_family"] == "Debian"
       with_items: "{{ debian_apt_keys }}"
       tags:
         - install
@@ -326,7 +326,7 @@
         state: touch
         mode: a+r
       register: result
-      when: ansible_os_family == "Debian"
+      when: ansible_facts["os_family"] == "Debian"
       with_items: "{{ debian_apt_keys }}"
       tags:
         - install
@@ -339,7 +339,7 @@
       register: result
       until: result is successful
       loop: "{{ debian_apt_repositories }}"
-      when: ansible_os_family == "Debian"
+      when: ansible_facts["os_family"] == "Debian"
       tags:
         - install
 
@@ -352,7 +352,7 @@
         autoremove: true
       register: result
       until: result is successful
-      when: ansible_os_family == "Debian"
+      when: ansible_facts["os_family"] == "Debian"
       tags:
         - upgrade
 
@@ -365,7 +365,7 @@
       register: result
       until: result is successful
       loop: "{{ debian_apt_packages }}"
-      when: ansible_os_family == "Debian"
+      when: ansible_facts["os_family"] == "Debian"
       tags:
         - install
 
@@ -376,13 +376,13 @@
         classic: "{{ item.classic }}"
         state: present
       loop: "{{ snap_packages }}"
-      when: ansible_os_family == "Debian"
+      when: ansible_facts["os_family"] == "Debian"
       tags:
         - install
 
     - name: Check if pyenv exists
       stat:
-        path: "{{ ansible_env.HOME }}/.pyenv"
+        path: "{{ ansible_facts[\"env\"].HOME }}/.pyenv"
       register: pyenv_exists
       changed_when: false
       tags:
@@ -402,14 +402,14 @@
       shell: command -v gcloud
       register: gcloud_exists
       ignore_errors: true
-      when: ansible_os_family != "Debian"
+      when: ansible_facts["os_family"] != "Debian"
       changed_when: false
       tags:
         - upgrade
         - gcloud
 
     - name: Upgrade gcloud components
-      when: not gcloud_exists is failed and ansible_os_family != "Debian"
+      when: not gcloud_exists is failed and ansible_facts["os_family"] != "Debian"
       shell: gcloud components update --quiet
       register: result
       changed_when: "'Update done!' in result.stderr"
@@ -457,8 +457,8 @@
     - name: Install sccache
       community.general.cargo:
         name: "sccache"
-        path: "{{ ansible_env.HOME }}/.cargo"
-        executable: "{{ ansible_env.HOME }}/.cargo/bin/cargo"
+        path: "{{ ansible_facts[\"env\"].HOME }}/.cargo"
+        executable: "{{ ansible_facts[\"env\"].HOME }}/.cargo/bin/cargo"
         state: latest
       register: result
       until: result is successful
@@ -470,14 +470,14 @@
     - name: Install with cargo
       community.general.cargo:
         name: "{{ item }}"
-        path: "{{ ansible_env.HOME }}/.cargo"
-        executable: "{{ ansible_env.HOME }}/.cargo/bin/cargo"
+        path: "{{ ansible_facts[\"env\"].HOME }}/.cargo"
+        executable: "{{ ansible_facts[\"env\"].HOME }}/.cargo/bin/cargo"
         state: latest
         locked: true
       register: result
       until: result is successful
       environment:
-        RUSTC_WRAPPER: "{{ ansible_env.HOME }}/.cargo/bin/sccache"
+        RUSTC_WRAPPER: "{{ ansible_facts[\"env\"].HOME }}/.cargo/bin/sccache"
       loop: "{{ cargo_packages }}"
       tags:
         - install
@@ -490,7 +490,7 @@
         state: latest
       register: result
       until: result is successful
-      when: ansible_os_family != "Darwin"
+      when: ansible_facts["os_family"] != "Darwin"
       tags:
         - install
         - upgrade
@@ -517,7 +517,7 @@
       register: result
       until: result is successful
       loop: "{{ npm_packages }}"
-      when: ansible_os_family == "Darwin"
+      when: ansible_facts["os_family"] == "Darwin"
       tags:
         - install
         - upgrade
@@ -532,7 +532,7 @@
       register: result
       until: result is successful
       loop: "{{ npm_packages }}"
-      when: ansible_os_family == "Debian"
+      when: ansible_facts["os_family"] == "Debian"
       tags:
         - install
         - upgrade
@@ -542,7 +542,7 @@
       become: true
       user:
         name: "{{ the_user }}"
-        shell: "{{ ansible_env.HOME }}/.cargo/bin/nu"
+        shell: "{{ ansible_facts[\"env\"].HOME }}/.cargo/bin/nu"
       tags:
         - config
 
@@ -570,7 +570,7 @@
         path: "{{ item }}"
         state: directory
       loop: "{{ osx_config_dirs }}"
-      when: ansible_os_family == "Darwin"
+      when: ansible_facts["os_family"] == "Darwin"
       tags:
         - dotfiles
         - config
@@ -581,7 +581,7 @@
         dest: "{{ item.dest }}"
         state: link
       loop: "{{ osx_dotfiles }}"
-      when: ansible_os_family == "Darwin"
+      when: ansible_facts["os_family"] == "Darwin"
       tags:
         - dotfiles
         - config
@@ -591,7 +591,7 @@
         path: "{{ item }}"
         state: directory
       loop: "{{ debian_config_dirs }}"
-      when: ansible_os_family == "Debian"
+      when: ansible_facts["os_family"] == "Debian"
       tags:
         - dotfiles
         - config
@@ -602,7 +602,7 @@
         dest: "{{ item.dest }}"
         state: link
       loop: "{{ debian_dotfiles }}"
-      when: ansible_os_family == "Debian"
+      when: ansible_facts["os_family"] == "Debian"
       tags:
         - dotfiles
         - config
