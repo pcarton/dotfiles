@@ -51,7 +51,6 @@
       - yq
     linux_homebrew_packages:
       - act
-      - alsa-lib
       - cmake
       - colima
       - coreutils
@@ -199,12 +198,10 @@
       - irust
       - mprocs
       - nu
-      - porsmo
       - presenterm
       - procs
       - ripgrep
       - ripgrep_all
-      - rusty-man
       - speedtest-rs
       - starship
       - tokei
