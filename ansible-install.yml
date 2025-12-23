@@ -159,6 +159,9 @@
       - terraform-ls
       - texlive
       # - tfenv # TODO
+    flatpak_packages:
+      - name: org.alacritty.Alacritty
+        remote: flathub
     snap_packages:
       - name: core
         classic: false
@@ -364,6 +367,18 @@
       until: result is successful
       loop: "{{ osx_app_store_apps }}"
       when: ansible_facts["os_family"] == "Darwin"
+      tags:
+        - install
+
+    - name: Install with Flatpack
+      become: false
+      community.general.flatpak:
+        name: "{{ item }}"
+        state: present
+      register: result
+      until: result is successful
+      loop: "{{ flatpack_packages }}"
+      when: ansible_facts["os_family"] == "RedHat"
       tags:
         - install
 
