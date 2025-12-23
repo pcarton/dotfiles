@@ -52,6 +52,7 @@
     linux_homebrew_packages:
       - act
       # - alacritty Needs Mac OS
+      - alsa-lib
       - cmake
       - colima
       - coreutils
