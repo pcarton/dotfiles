@@ -4,7 +4,7 @@
   become: false
   vars:
     the_user: "{{ ansible_facts[\"user_id\"] }}"
-    homebrew_packages:
+    osx_homebrew_packages:
       - act
       - alacritty
       - cmake
@@ -47,6 +47,51 @@
       - terraform-ls
       - tfenv
       - vlc
+      - wget
+      - yq
+    linux_homebrew_packages:
+      - act
+      # - alacritty Needs Mac OS
+      - cmake
+      - colima
+      - coreutils
+      # - derailed/popeye/popeye
+      - diffoci
+      - docker
+      - exiftool
+      - ffmpeg
+      - font-sauce-code-pro-nerd-font
+      - fzf
+      - geckodriver
+      - gh
+      - gifsicle
+      - gnupg
+      - graphviz
+      - helix
+      - helm
+      # - basictex MacOS is required
+      - hugo
+      - jq
+      - k9s
+      - kubectl
+      - kubectx
+      - kustomize
+      # - krita MacOS is required
+      - llvm
+      - marksman
+      # - marta MacOS is required
+      # - mas MacOS is required
+      - newsboat
+      - nmap
+      - node
+      - npm
+      - pandoc
+      - parallel
+      - pipx
+      - poppler
+      - terraform-ls
+      - tfenv
+      # - vlc
       - wget
       - yq
     osx_app_store_apps:
@@ -274,7 +319,7 @@
       tags:
         - upgrade
 
-    - name: Install with Homebrew
+    - name: Install with MacOS Homebrew
       become: false
       community.general.homebrew:
         name: "{{ item }}"
@@ -282,8 +327,21 @@
         update_homebrew: true
       register: result
       until: result is successful
-      loop: "{{ homebrew_packages }}"
-      when: (ansible_facts["os_family"] == "Darwin") or (ansible_facts["os_family"] == "RedHat")
+      loop: "{{ osx_homebrew_packages }}"
+      when: ansible_facts["os_family"] == "Darwin"
+      tags:
+        - install
+
+    - name: Install with Linux Homebrew
+      become: false
+      community.general.homebrew:
+        name: "{{ item }}"
+        state: present
+        update_homebrew: true
+      register: result
+      until: result is successful
+      loop: "{{ linux_homebrew_packages }}"
+      when: ansible_facts["os_family"] == "RedHat"
       tags:
         - install
 
