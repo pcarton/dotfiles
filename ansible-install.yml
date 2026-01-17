@@ -207,6 +207,8 @@
         dest: "{{ ansible_env.HOME }}/.nu_scripts/rg-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/ssh-completions.nu"
         dest: "{{ ansible_env.HOME }}/.nu_scripts/ssh-completions.nu"
+      - src: "{{ playbook_dir }}/nu_scripts/uv-completions.nu"
+        dest: "{{ ansible_env.HOME }}/.nu_scripts/ux-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/vscode-completions.nu"
         dest: "{{ ansible_env.HOME }}/.nu_scripts/vscode-completions.nu"
       - src: "{{ playbook_dir }}/nu_scripts/zellij-completions.nu"

@@ -570,6 +570,7 @@ source ~/.nu_scripts/git-completions.nu
 source ~/.nu_scripts/nix-completions.nu
 source ~/.nu_scripts/rg-completions.nu
 source ~/.nu_scripts/ssh-completions.nu
+source ~/.nu_scripts/uv-completions.nu
 source ~/.nu_scripts/vscode-completions.nu
 source ~/.nu_scripts/zellij-completions.nu
 
