@@ -160,9 +160,9 @@
       - speedtest-rs
       - starship
       - tokei
+      - uv
       - wiki-tui
-      - yazi-fm
-      - yazi-cli
+      - yazi-build
       - zellij
       - zoxide
     npm_packages:
