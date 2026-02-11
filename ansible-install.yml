@@ -13,6 +13,7 @@
       - derailed/popeye/popeye
       - diffoci
       - docker
+      - docker-compose
       - exiftool
       - ffmpeg
       - font-sauce-code-pro-nerd-font
