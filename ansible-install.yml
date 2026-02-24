@@ -291,7 +291,7 @@
         - install
 
     - name: Upgrade all with MAS
-      become: false
+      become: true
       community.general.mas:
         upgrade_all: true
       register: result
