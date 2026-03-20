@@ -244,6 +244,8 @@
         dest: "{{ ansible_facts[\"env\"].HOME }}/.config/yazi/yazi.toml"
       - src: "{{ playbook_dir }}/yazi/theme.toml"
         dest: "{{ ansible_facts[\"env\"].HOME }}/.config/yazi/theme.toml"
+      - src: "{{ playbook_dir }}/.zshrc"
+        dest: "{{ ansible_facts[\"env\"].HOME }}/.zshrc"
     osx_config_dirs:
       - "/Users/{{ ansible_facts[\"user_id\"] }}/Library/Application Support/nushell"
       - "/Users/{{ ansible_facts[\"user_id\"] }}/Library/Application Support/ripgrep-all"
