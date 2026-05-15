@@ -270,6 +270,15 @@
         dest: "{{ ansible_facts[\"env\"].HOME }}/.config/ripgrep-all/config.jsonc"
 
   tasks:
+    - name: Calculate timestamp for one week ago
+      ansible.builtin.set_fact:
+        one_week_ago: "{{ '%Y-%m-%dT%H:%M:%SZ' | strftime((now(utc=true, fmt='%s') | int) - 604800, utc=true) }}"
+
+    - name: Display one_week_ago timestamp for debugging
+      ansible.builtin.debug:
+        msg: "One week ago was: {{ one_week_ago }}"
+        verbosity: 1
+
     - name: Upgrade all with OSX Homebrew
       become: false
       community.general.homebrew:
@@ -495,6 +504,7 @@
       ansible.builtin.pip:
         name: pipx
         state: latest
+        extra_args: "--uploaded-prior-to={{one_week_ago}}"
       register: result
       until: result is successful
       when: ansible_facts["os_family"] != "Darwin"
@@ -508,6 +518,7 @@
         name: "{{ item }}"
         state: latest
         executable: /opt/homebrew/bin/pipx
+        pip_args: "--uploaded-prior-to={{one_week_ago}}"
       register: result
       until: result is successful
       loop: "{{ pip_packages }}"
