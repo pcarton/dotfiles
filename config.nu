@@ -557,12 +557,7 @@ $env.config = {
   ]
 }
 
-source ~/.cache/starship/init.nu
-source ~/.zoxide.nu
-source ~/aliases.sh
-
 source ~/.nu_scripts/btm-completions.nu
-source ~/.nu_scripts/cd.nu
 source ~/.nu_scripts/curl-completions.nu
 source ~/.nu_scripts/docker-completions.nu
 source ~/.nu_scripts/gh-completions.nu
@@ -573,6 +568,11 @@ source ~/.nu_scripts/ssh-completions.nu
 source ~/.nu_scripts/uv-completions.nu
 source ~/.nu_scripts/vscode-completions.nu
 source ~/.nu_scripts/zellij-completions.nu
+
+source ~/.cache/starship/init.nu
+source ~/.zoxide.nu
+source ~/aliases.sh
+source ~/.nu_scripts/cd.nu
 
 # Fix for MacOS open, need to find a way to make this conditional but knowable at parse time for the config
 alias nu-open = open
